@@ -1,0 +1,196 @@
+﻿@model Files.Application.Petition.CreatePetition
+
+    <style>
+        /* .modal-dialog {
+            width: 94% !important;
+        }*/
+
+        .select2-container {
+            width: 100% !important;
+        }
+
+        .modal-footer {
+            border-top: unset !important;
+        }
+
+        .modal .modal-dialog .modal-content .modal-footer {
+            padding-top: unset !important;
+        }
+
+        p {
+            direction: ltr !important;
+            text-align: right !important;
+        }
+
+        input[type=radio]:hover {
+            cursor: pointer;
+        }
+
+        .error {
+            font-size: 14px !important;
+        }
+    </style>
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+
+    <form asp-page="./Index" asp-page-handler="CreatePetition" id="workshops" autocomplete="off"
+          method="post"
+          data-ajax="true"
+          data-callback=""
+          data-action="Refresh"
+          enctype="multipart/form-data">
+        <div class="modal-body">
+            <div class="row">
+                <fieldset class="m-b-30" style="border: 1px solid #999797; border-radius: 10px; padding: revert">
+                    <legend style="margin-bottom: 5px; font-size: large; border-bottom: 0px; color: #505458; width: 140px; text-align: center;"> شرح دادنامه </legend>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label asp-for="FileData.ArchiveNo" class="control-label">  شماره بایگانی </label>
+                                <input type="text" class="form-control" asp-for="FileData.ArchiveNo">
+                                <span asp-validation-for="FileData.ArchiveNo" class="error"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label asp-for="FileData.FileClass" class="control-label"> کلاسه پرونده </label>
+                                <input type="text" class="form-control" asp-for="FileData.FileClass">
+                                <span asp-validation-for="FileData.FileClass" class="error"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label asp-for="FileData.Reqester" class="control-label"> موکل </label>
+                                <select class="form-control select2-tag" asp-for="FileData.Reqester">
+                                    <option value="1">اکبر اکبرزاده</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label asp-for="BoardProcessingStage" class="control-label"> مرحله رسیدگی </label>
+                                <select class="form-control select2-tag" asp-for="BoardProcessingStage">
+                                    @if(Model.BoardTypeId == false)
+                                    {
+                                        <option value="0">تشخیص</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="1">حل اختلاف</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label asp-for="PetitionIssuanceDate" class="control-label persianDateInput"> تاریخ صدور دادنامه </label>
+                                <input type="text" class="form-control" asp-for="PetitionIssuanceDate">
+                                <span asp-validation-for="PetitionIssuanceDate" class="error"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label asp-for="NotificationPetitionDate" class="control-label persianDateInput"> تاریخ ابلاغ دادنامه </label>
+                                <input type="text" class="form-control" asp-for="NotificationPetitionDate">
+                                <span asp-validation-for="NotificationPetitionDate" class="error"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label asp-for="TotalPenalty" class="control-label"> جمع نهایی دادنامه </label>
+                                <input type="text" class="form-control" asp-for="TotalPenalty">
+                                <span asp-validation-for="TotalPenalty" class="error"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label asp-for="TotalPenaltyTitles" class="control-label"> جمع عناوین دادنامه </label>
+                                <input type="text" class="form-control" asp-for="TotalPenaltyTitles">
+                                <span asp-validation-for="TotalPenaltyTitles" class="error"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="recordVerification" class="row m-t-15">
+                        <h4 class="m-r-10">احراز سابقه</h4>
+                        <div class="col-md-3 recordVerification">
+                            <div class="form-group">
+                                <label asp-for="createWorkHistory.FromDate" class="control-label"> از تاریخ </label>
+                                <input type="text" class="form-control" asp-for="createWorkHistory.FromDate">
+                                <span asp-validation-for="createWorkHistory.FromDate" class="error"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-3 recordVerification">
+                            <div class="form-group">
+                                <label asp-for="createWorkHistory.ToDate" class="control-label"> تا تاریخ </label>
+                                <input type="text" class="form-control" asp-for="createWorkHistory.ToDate">
+                                <span asp-validation-for="createWorkHistory.ToDate" class="error"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-3 recordVerification">
+                            <div class="form-group">
+                                <label asp-for="createWorkHistory.WorkingHoursPerDay" class="control-label"> ساعت کار در روز </label>
+                                <input type="text" class="form-control" asp-for="createWorkHistory.WorkingHoursPerDay">
+                                <span asp-validation-for="createWorkHistory.WorkingHoursPerDay" class="error"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-3 recordVerification">
+                            <div class="form-group">
+                                <label asp-for="createWorkHistory.WorkingHoursPerWeek" class="control-label"> ساعت کار در هفته </label>
+                                <input type="text" class="form-control" asp-for="createWorkHistory.WorkingHoursPerWeek">
+                                <span asp-validation-for="createWorkHistory.WorkingHoursPerWeek" class="error"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-12 recordVerification">
+                            <div class="form-group">
+                                <label asp-for="createWorkHistory.Description" class="control-label"> توضیحات </label>
+                                <textarea class="form-control" asp-for="createWorkHistory.Description"></textarea>
+                                <span asp-validation-for="createWorkHistory.Description" class="error"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-8 addRecordVerificationFormButton"></div>
+                        <div class="col-md-4">
+                            <a onclick="addNewFormRow('recordVerification', 'addRecordVerificationFormButton')" class="btn btn-rounded btn-success waves-effect waves-light col-xs-12 m-b-30">+ افزودن عنوان</a>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        <div class="modal-footer">
+
+            <button type="submit" class="btn btn-success btn-rounded waves-effect waves-light">ذخیره</button>
+
+            <button type="button" class="btn btn-default btn-rounded waves-effect waves-light m-b-5" data-dismiss="modal">بستن</button>
+        </div>
+
+    </form>
+
+</div>
+
+
+<script>
+    $(".select2-tag").select2({
+        language: "fa",
+        dir: "rtl"
+    });
+</script>
+<script>
+
+    function addNewFormRow(dataType, flag) {
+
+        var content = $("#" + dataType + " ." + dataType);
+        //var cn = $(content[0]).clone(true);
+
+        //$(cn).find('label').html('تاریخ نوبت ' + turns[$(content).size()/3 - 1] + ' رسیدگی');
+         
+        //$(cn).insertBefore("#" + dataType + " .addProceedingSessionFormButton");
+        $(content[0]).clone(true).insertBefore("#" + dataType + " ." + flag);
+        $(content[1]).clone(true).insertBefore("#" + dataType + " ." + flag);
+        $(content[2]).clone(true).insertBefore("#" + dataType + " ." + flag);
+        $(content[3]).clone(true).insertBefore("#" + dataType + " ." + flag);
+        $(content[4]).clone(true).insertBefore("#" + dataType + " ." + flag);
+
+    }
+</Script>                               
+
