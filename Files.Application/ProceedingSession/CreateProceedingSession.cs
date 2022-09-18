@@ -8,8 +8,8 @@ namespace Files.Application.ProceedingSession
 {
     public class CreateProceedingSession
     {
-        public string[] Date { get; set; }
-        public string[] Time { get; set; }
+        public string Date { get; set; }
+        public string Time { get; set; }
         public long Board_Id { get; set; }
     }
 }

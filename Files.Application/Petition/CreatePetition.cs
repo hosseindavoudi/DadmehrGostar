@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Files.Application.PenaltyTitle;
 
 namespace Files.Application.Petition
 {
@@ -22,7 +23,8 @@ namespace Files.Application.Petition
         public bool BoardProcessingStage { get; set; }
         public bool BoardTypeId { get; set; }
         public CreateFile FileData { get; set; }
-        public CreateWorkHistory CreateWorkHistory { get; set; }
+        public List<CreateWorkHistory> CreateWorkHistory { get; set; }
+        public List<CreatePenaltyTitle> CreatePenaltyTitle { get; set; }
 
     }
 }

@@ -25,8 +25,8 @@ namespace Files.Application.File
 
         public CreateBoard createDiagnosisBoard { get; set; }
         public CreateBoard createDisputeResolutionBoard { get; set; }
-        public CreateProceedingSession createDiagnosisProceedingSession { get; set; }
-        public CreateProceedingSession createDisputeResolutionProceedingSession { get; set; }
+        public List<CreateProceedingSession>  createDiagnosisPS { get; set; }
+        public List<CreateProceedingSession> createDisputeResolutionPS { get; set; }
         public CreatePetition createPetition { get; set; }
     }
 }

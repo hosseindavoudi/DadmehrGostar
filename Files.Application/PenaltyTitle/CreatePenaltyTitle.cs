@@ -12,8 +12,9 @@ namespace Files.Application.PenaltyTitle
         public string ToDate { get; set; }
         public string Title { get; set; }
         public string Day { get; set; }
-        public string Description { get; set; }
         public long Petition_Id { get; set; }
+        public string PaidAmount { get; set; }
+        public string RemainingAmount { get; set; }
 
     }
 }

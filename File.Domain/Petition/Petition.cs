@@ -28,8 +28,8 @@ namespace File.Domain.Petition
         public string TotalPenaltyTitles { get; private set; }
         public string Description { get; private set; }
 
-        public long Board_Id { get;private set; }
-        public long File_Id { get;private set; }
+        public long Board_Id { get; private set; }
+        public long File_Id { get; private set; }
         public File.File File { get; set; }
         public Board.Board Board { get; set; }
 

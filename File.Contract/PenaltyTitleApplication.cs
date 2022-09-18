@@ -11,7 +11,7 @@ using Files.Application.PenaltyTitle;
 
 namespace File.Contract
 {
-    public class PenaltyTitleApplication:IPenaltyTitleApplication
+    public class PenaltyTitleApplication : IPenaltyTitleApplication
     {
         private readonly IPenaltyTitleRepository _penaltyTitleRepository;
 
@@ -34,7 +34,7 @@ namespace File.Contract
             //if(_BoardRepository.Exists(x=>x.Branch == command.Branch))
             //    operation.Failed("fail message")
 
-            var penaltyTitle = new PenaltyTitle(FromDate,ToDate,command.Title,command.Day,command.Description,command.Petition_Id);
+            var penaltyTitle = new PenaltyTitle(FromDate, ToDate, command.Title, command.Day, command.Petition_Id, command.PaidAmount, command.RemainingAmount);
             _penaltyTitleRepository.Create(penaltyTitle);
             _penaltyTitleRepository.SaveChanges();
 
@@ -56,7 +56,7 @@ namespace File.Contract
             //if(_BoardRepository.Exists(x=>x.Branch == command.Branch))
             //    operation.Failed("fail message")
 
-            penaltyTitle.Edit(FromDate, ToDate, command.Title, command.Day, command.Description,command.Petition_Id);
+            penaltyTitle.Edit(FromDate, ToDate, command.Title, command.Day, command.Petition_Id, command.PaidAmount, command.RemainingAmount);
             _penaltyTitleRepository.SaveChanges();
 
             return operation.Succcedded();

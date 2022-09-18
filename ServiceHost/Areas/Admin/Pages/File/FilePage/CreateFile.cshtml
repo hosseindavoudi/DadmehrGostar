@@ -34,7 +34,7 @@
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 
-    <form asp-page="./Index" asp-page-handler="Create" id="workshops" autocomplete="off"
+    <form asp-page="./Index" asp-page-handler="CreateFile" id="workshops" autocomplete="off"
           method="post"
           data-ajax="true"
           data-callback=""
@@ -151,22 +151,22 @@
                         </div>
                         <div class="col-md-6 proceedingSession">
                             <div class="form-group">
-                                <label asp-for="createDiagnosisProceedingSession.Date" class="control-label"> تاریخ نوبت اول رسیدگی </label>
-                                <input type="text" class="form-control" asp-for="createDiagnosisProceedingSession.Date">
-                                <span asp-validation-for="createDiagnosisProceedingSession.Date" class="error"></span>
+                                <label asp-for="createDiagnosisPS[0].Date" class="control-label"> تاریخ نوبت اول رسیدگی </label>
+                                <input type="text" class="form-control" asp-for="createDiagnosisPS[0].Date">
+                                <span asp-validation-for="createDiagnosisPS[0].Date" class="error"></span>
                             </div>
                         </div>
                         <div class="col-md-6 proceedingSession">
                             <div class="form-group">
-                                <label asp-for="createDiagnosisProceedingSession.Time" class="control-label"> ساعت برگزاری جلسه </label>
-                                <input type="text" class="form-control" asp-for="createDiagnosisProceedingSession.Time">
-                                <span asp-validation-for="createDiagnosisProceedingSession.Time" class="error"></span>
+                                <label asp-for="createDiagnosisPS[0].Time" class="control-label"> ساعت برگزاری جلسه </label>
+                                <input type="text" class="form-control" asp-for="createDiagnosisPS[0].Time">
+                                <span asp-validation-for="createDiagnosisPS[0].Time" class="error"></span>
                             </div>
                         </div>
                         <div class="col-xs-12 proceedingSession"></div>
                         <div class="col-md-8 addProceedingSessionFormButton"></div>
                         <div class="col-md-4">
-                            <a onclick="addNewFormRow('diagnosis')" class="btn btn-rounded btn-success waves-effect waves-light col-xs-12 m-b-30">+ نوبت جدید برگزاری</a>
+                            <a onclick="addNewFormDiagnosisPS('diagnosis')" class="btn btn-rounded btn-success waves-effect waves-light col-xs-12 m-b-30">+ نوبت جدید برگزاری</a>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
@@ -224,22 +224,22 @@
                         </div>
                         <div class="col-md-6 proceedingSession">
                             <div class="form-group">
-                                <label asp-for="createDisputeResolutionProceedingSession.Date" class="control-label"> تاریخ نوبت اول رسیدگی </label>
-                                <input type="text" class="form-control" asp-for="createDisputeResolutionProceedingSession.Date">
-                                <span asp-validation-for="createDisputeResolutionProceedingSession.Date" class="error"></span>
+                                <label asp-for="createDisputeResolutionPS[0].Date" class="control-label"> تاریخ نوبت اول رسیدگی </label>
+                                <input type="text" class="form-control" asp-for="createDisputeResolutionPS[0].Date">
+                                <span asp-validation-for="createDisputeResolutionPS[0].Date" class="error"></span>
                             </div>
                         </div>
                         <div class="col-md-6 proceedingSession">
                             <div class="form-group">
-                                <label asp-for="createDisputeResolutionProceedingSession.Time" class="control-label"> ساعت برگزاری جلسه </label>
-                                <input type="text" class="form-control" asp-for="createDisputeResolutionProceedingSession.Time">
-                                <span asp-validation-for="createDisputeResolutionProceedingSession.Time" class="error"></span>
+                                <label asp-for="createDisputeResolutionPS[0].Time" class="control-label"> ساعت برگزاری جلسه </label>
+                                <input type="text" class="form-control" asp-for="createDisputeResolutionPS[0].Time">
+                                <span asp-validation-for="createDisputeResolutionPS[0].Time" class="error"></span>
                             </div>
                         </div>
                         <div class="col-xs-12 proceedingSession"></div>
                         <div class="col-md-8 addProceedingSessionFormButton"></div>
                         <div class="col-md-4">
-                            <a onclick="addNewFormRow('disputeResolution')" class="btn btn-rounded btn-success waves-effect waves-light col-xs-12 m-b-30">+ نوبت جدید برگزاری</a>
+                            <a onclick="addNewFormDisputeResolutionPS('disputeResolution')" class="btn btn-rounded btn-success waves-effect waves-light col-xs-12 m-b-30">+ نوبت جدید برگزاری</a>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
@@ -288,19 +288,71 @@
     });
 </script>
 <script>
+    
+    var DiagnosisPSCounter = 0;
+    var DisputeResolutionPSCounter = 0;
+    const turns = ['اول', 'دوم', 'سوم', 'چهارم', 'پنجم', 'ششم', 'هفتم', 'هشتم', 'نهم', 'دهم']
 
-    function addNewFormRow(boardType) {
+    function addNewFormDiagnosisPS(boardType) {
+        
+        if (DiagnosisPSCounter >= 9)
+            return;
 
-        var turns = ['دوم', 'سوم', 'چهارم', 'پنجم', 'ششم', 'هفتم', 'هشتم', 'نهم', 'دهم']
-        var content = $("#" + boardType + " .proceedingSession");
-        var cn = $(content[0]).clone(true);
+        DiagnosisPSCounter++;
+        //var content = $("#" + boardType + " .proceedingSession");
+        //var cn = $(content[0]).clone();
 
-        $(cn).find('label').html('تاریخ نوبت ' + turns[$(content).size()/3 - 1] + ' رسیدگی');
+        const label = 'تاریخ نوبت ' + turns[DiagnosisPSCounter] + ' رسیدگی';
          
-        $(cn).insertBefore("#" + boardType + " .addProceedingSessionFormButton");
-        $(content[1]).clone(true).insertBefore("#" + boardType + " .addProceedingSessionFormButton");
-        $(content[2]).clone(true).insertBefore("#" + boardType + " .addProceedingSessionFormButton");
+        const html = `<div class="col-md-6 proceedingSession">
+                            <div class="form-group">
+                                <label class="control-label" for="createDiagnosisPS_${DiagnosisPSCounter}__Date"> ${label} </label>
+                                <input type="text" class="form-control" id="createDiagnosisPS_${DiagnosisPSCounter}__Date" name="createDiagnosisPS[${DiagnosisPSCounter}].Date" value="">
+                                <span class="error field-validation-valid" data-valmsg-for="createDiagnosisPS[${DiagnosisPSCounter}].Date" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 proceedingSession">
+                            <div class="form-group">
+                                <label class="control-label" for="createDiagnosisPS_${DiagnosisPSCounter}__Time"> ساعت برگزاری جلسه </label>
+                                <input type="text" class="form-control" id="createDiagnosisPS_${DiagnosisPSCounter}__Time" name="createDiagnosisPS[${DiagnosisPSCounter}].Time" value="">
+                                <span class="error field-validation-valid" data-valmsg-for="createDiagnosisPS[${DiagnosisPSCounter}].Time" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>`
+                        
+        $(html).insertBefore("#" + boardType + " .addProceedingSessionFormButton");
+
+        //$(cn).insertBefore("#" + boardType + " .addProceedingSessionFormButton");
+        //$(content[1]).clone().insertBefore("#" + boardType + " .addProceedingSessionFormButton");
+        //$(content[2]).clone().insertBefore("#" + boardType + " .addProceedingSessionFormButton");
 
     }
+    
+    function addNewFormDisputeResolutionPS(boardType) 
+    {
+        if (DisputeResolutionPSCounter >= 9)
+            return;
+
+        DisputeResolutionPSCounter++;
+
+        const label = 'تاریخ نوبت ' + turns[DisputeResolutionPSCounter] + ' رسیدگی';
+        
+        const html = `<div class="col-md-6 proceedingSession">
+                            <div class="form-group">
+                                <label class="control-label" for="createDisputeResolutionPS_${DisputeResolutionPSCounter}__Date"> ${label} </label>
+                                <input type="text" class="form-control" id="createDisputeResolutionPS_${DisputeResolutionPSCounter}__Date" name="createDisputeResolutionPS[${DisputeResolutionPSCounter}].Date" value="">
+                                <span class="error field-validation-valid" data-valmsg-for="createDisputeResolutionPS[${DisputeResolutionPSCounter}].Date" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 proceedingSession">
+                            <div class="form-group">
+                                <label class="control-label" for="createDisputeResolutionPS_${DisputeResolutionPSCounter}__Time"> ساعت برگزاری جلسه </label>
+                                <input type="text" class="form-control" id="createDisputeResolutionPS_${DisputeResolutionPSCounter}__Time" name="createDisputeResolutionPS[${DisputeResolutionPSCounter}].Time" value="">
+                                <span class="error field-validation-valid" data-valmsg-for="createDisputeResolutionPS[${DisputeResolutionPSCounter}].Time" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>`
+                        
+        $(html).insertBefore("#" + boardType + " .addProceedingSessionFormButton");
+    }
+
 </Script>                               
 
