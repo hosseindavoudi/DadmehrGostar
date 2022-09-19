@@ -67,5 +67,12 @@ namespace File.Contract
         {
             return _fileRepository.Search(searchModel);
         }
+
+        public FileViewModel GetLastArchiveNumber(FileSearchModel searchModel)
+        {
+            var model = Search(searchModel);
+
+           return model == null ? model.OrderByDescending(x => x.ArchiveNo).FirstOrDefault() : new FileViewModel();
+        }
     }
 }

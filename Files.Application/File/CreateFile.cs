@@ -12,15 +12,31 @@ namespace Files.Application.File
 {
     public class CreateFile
     {
+        [Required(ErrorMessage = "فیلد الزامی است")]
+        [Range(0, int.MaxValue, ErrorMessage = "لطفا عدد وارد کنید")]
         public long ArchiveNo { get; set; }
+
+        [Required(ErrorMessage = "فیلد الزامی است")]
         public string ClientVisitDate { get; set; }
+
+        [Required(ErrorMessage = "فیلد الزامی است")]
         public string ProceederReference { get; set; }
+
+        [Required(ErrorMessage = "فیلد الزامی است")]
         public long Reqester { get; set; }
+
+        [Required(ErrorMessage = "فیلد الزامی است")]
         public long Summoned { get; set; }
+
+        [Required(ErrorMessage = "فیلد الزامی است")]
         public bool Client { get; set; }
-        [Required]
+
+        [Required(ErrorMessage = "فیلد الزامی است")]
         public string FileClass { get; set; }
+
+        [Required(ErrorMessage = "فیلد الزامی است")]
         public bool HasMandate { get; set; }
+
         public string Description { get; set; }
 
         public CreateBoard createDiagnosisBoard { get; set; }

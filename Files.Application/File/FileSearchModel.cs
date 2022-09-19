@@ -13,5 +13,6 @@ namespace Files.Application.File
         public string FileClass { get; set; }
         public bool HasMandate { get; set; }
         public string Description { get; set; }
+
     }
 }

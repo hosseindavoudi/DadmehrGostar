@@ -61,7 +61,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label asp-for="ArchiveNo" class="control-label">  شماره بایگانی </label>
-                                <input type="text" class="form-control" asp-for="ArchiveNo">
+                                <input type="text" class="form-control" asp-for="ArchiveNo" onfocusout="CheckArchiveNo()">
                                 <span asp-validation-for="ArchiveNo" class="error"></span>
                             </div>
                         </div>
@@ -352,6 +352,41 @@
                         </div>`
                         
         $(html).insertBefore("#" + boardType + " .addProceedingSessionFormButton");
+    }
+    
+    function CheckArchiveNo(){
+
+        const archiveNo = document.getElementById("ArchiveNo").value;
+
+        console.log(archiveNo);
+        if (archiveNo == "") return;
+
+        var data = { "archiveNo" : archiveNo };
+        
+        $.ajax({
+            //contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            url: '@Url.Page("/File/FilePage/Index", "CheckUniqueArchiveNo")',
+            headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
+            data: { "archiveNo" : archiveNo },
+
+            success: function (response) {
+                console.log(response);
+                if (response.stat == false) {
+
+                    $("button[type=submit]").attr('disabled', true)
+                    swal("", response.message, "error");
+                }
+                else {
+                    $("button[type=submit]").attr('disabled', false)
+                }
+            },
+            failure: function (response) {
+                alert(response);
+            }
+        });
+
     }
 
 </Script>                               

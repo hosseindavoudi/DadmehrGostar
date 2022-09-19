@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,31 +14,38 @@ namespace ServiceHost.Areas.Admin.Pages.File.FilePage
         public FileSearchModel searchModel;
         public List<FileViewModel> viewModels;
 
-        private readonly IFileApplication _FileApplication;
+        private readonly IFileApplication _fileApplication;
 
-        public IndexModel(IFileApplication FileApplication)
+        public IndexModel(IFileApplication fileApplication)
         {
-            _FileApplication = FileApplication;
+            _fileApplication = fileApplication;
         }
 
         public void OnGet(FileSearchModel searchModel)
         {
-            viewModels = _FileApplication.Search(searchModel);
+            viewModels = _fileApplication.Search(searchModel);
         }
         public IActionResult OnGetCreateFile()
         {
+            searchModel = new FileSearchModel();
+            var archiveNo = _fileApplication.GetLastArchiveNumber(searchModel) == null ? _fileApplication.GetLastArchiveNumber(searchModel).ArchiveNo : (long)1;
 
-            return Partial("./CreateFile");
+            var createFile = new CreateFile
+            {
+                ArchiveNo = archiveNo
+            };
+
+            return Partial("./CreateFile", createFile);
         }
         public IActionResult OnPostCreateFile(CreateFile command)
         {
-            var result = _FileApplication.Create(command);
+            var result = _fileApplication.Create(command);
             return new JsonResult(result);
         }
 
         public IActionResult OnGetEditFile(long id)
         {
-            var job = _FileApplication.GetDetails(id);
+            var job = _fileApplication.GetDetails(id);
 
 
             return Partial("Edit", job);
@@ -56,7 +63,7 @@ namespace ServiceHost.Areas.Admin.Pages.File.FilePage
         public IActionResult OnPostCreatePetition(CreatePetition command)
         {
             var result = true;
-            //var result = _FileApplication.Create(command);
+            //var result = _fileApplication.Create(command);
             return new JsonResult(result);
         }
 
@@ -70,7 +77,7 @@ namespace ServiceHost.Areas.Admin.Pages.File.FilePage
             }
 
 
-            var result = _FileApplication.Edit(command);
+            var result = _fileApplication.Edit(command);
 
             return new JsonResult(result);
 
@@ -78,9 +85,17 @@ namespace ServiceHost.Areas.Admin.Pages.File.FilePage
         }
         public IActionResult OnGetDetails(long id)
         {
-            var editJob = _FileApplication.GetDetails(id);
+            var editJob = _fileApplication.GetDetails(id);
 
             return Partial("Details", editJob);
+        }
+
+        public JsonResult OnPostCheckUniqueArchiveNo(string archiveNo)
+        {
+            var sModel = new FileSearchModel { ArchiveNo = long.Parse(archiveNo) };
+            var vModel = _fileApplication.Search(sModel);
+
+            return new JsonResult(new { stat = vModel.Count() == 0 ? true : false, message = vModel == null ? "" : "شماره بایگانی تکراری است" });
         }
 
     }

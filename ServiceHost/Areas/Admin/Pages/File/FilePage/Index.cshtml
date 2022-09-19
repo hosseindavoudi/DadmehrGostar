@@ -11,30 +11,30 @@
     Layout = "Shared/_AdminLayout";
     ViewData["title"] = "پرونده ها";
     <style>
-        .thh0 {
-            width: 8px !important;
-        }
+            .thh0 {
+                width: 8px !important;
+            }
 
-        .thh {
-            width: 40px !important;
-        }
+            .thh {
+                width: 40px !important;
+            }
 
-        .thh2 {
-            width: 130px !important;
-        }
+            .thh2 {
+                width: 130px !important;
+            }
 
-        .thhNastionalId {
-            width: 30px !important;
-        }
+            .thhNastionalId {
+                width: 30px !important;
+            }
 
-        .inpt {
-            width: 100%;
-            border: 1px solid #c7c7c7;
-        }
+            .inpt {
+                width: 100%;
+                border: 1px solid #c7c7c7;
+            }
 
-        .searchpanel {
-            background-color: #747272;
-        }
+            .searchpanel {
+                background-color: #747272;
+            }
     </style>
 }
 
@@ -84,7 +84,7 @@
                                         <div class="row">
                                             <div class="col-sm-4 pull-right">
                                                 <label class="sr-only" asp-for="searchModel.ArchiveNo"></label>
-                                                <input class="form-control inpt" asp-for="searchModel.ArchiveNo" placeholder="شماره بایگانی" style="width: 100%">
+                                                <input class="form-control inpt" asp-for="searchModel.ArchiveNo"  placeholder="شماره بایگانی" style="width: 100%">
                                             </div>
                                             <div class="col-sm-4 pull-right">
                                                 <label class="sr-only" asp-for="searchModel.FileClass"></label>
@@ -260,11 +260,16 @@
 
     </script>
     <script>
+
         $(document).ready(function () {
             $('#datatable2').dataTable(
                 {
                     "lengthMenu": [[25, 10, 50, 100, -1], [25, 10, 50, 100, "All"]]
                 });
         });
+        
+        
+
+    
     </script>
 }
