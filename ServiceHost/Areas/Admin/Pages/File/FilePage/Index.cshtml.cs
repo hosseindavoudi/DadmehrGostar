@@ -15,7 +15,7 @@ namespace ServiceHost.Areas.Admin.Pages.File.FilePage
 {
     public class IndexModel : PageModel
     {
-        public FileSearchModel searchModel;
+        public FileSearchModel fileSearchModel;
         public List<FileViewModel> viewModels;
 
         private readonly IFileApplication _fileApplication;
@@ -40,15 +40,56 @@ namespace ServiceHost.Areas.Admin.Pages.File.FilePage
             _proceedingSessionApplication = proceedingSessionApplication;
         }
 
-        public void OnGet(FileSearchModel searchModel)
+        public void OnGet(FileSearchModel fileSearchModel)
         {
-            viewModels = _fileApplication.Search(searchModel);
+            //var boardSearchModel = new BoardSearchModel();
+            var files = _fileApplication.Search(fileSearchModel);
+            var i = 0;
+
+            viewModels = files;
+
+            foreach(var file in files)
+            {
+                var diagnosisBoard = _boardApplication.GetDetails(file.Id, 1) ?? new EditBoard();
+
+                var firstDiagnosisProceedingSessionList = _proceedingSessionApplication.Search(diagnosisBoard.Id);
+                var firstDiagnosisProceedingSession = firstDiagnosisProceedingSessionList.Count != 0
+                                                        ? firstDiagnosisProceedingSessionList.First()
+                                                        : new EditProceedingSession();
+
+                var lastDiagnosisProceedingSessionList = _proceedingSessionApplication.Search(diagnosisBoard.Id);
+                var lastDiagnosisProceedingSession = lastDiagnosisProceedingSessionList.Count != 0
+                                                        ? lastDiagnosisProceedingSessionList.First()
+                                                        : new EditProceedingSession();
+
+
+                var disputeResolutionBoard = _boardApplication.GetDetails(file.Id, 2) ?? new EditBoard();
+                var firstDisputeResolutionProceedingSessionList = _proceedingSessionApplication.Search(disputeResolutionBoard.Id);
+                var firstDisputeResolutionProceedingSession = firstDisputeResolutionProceedingSessionList.Count != 0
+                                                                ? firstDisputeResolutionProceedingSessionList.First()
+                                                                : new EditProceedingSession();
+
+                var lastDisputeResolutionProceedingSessionList = _proceedingSessionApplication.Search(disputeResolutionBoard.Id);
+                var lastDisputeResolutionProceedingSession = lastDisputeResolutionProceedingSessionList.Count != 0
+                                                                ? lastDisputeResolutionProceedingSessionList.First()
+                                                                : new EditProceedingSession();
+
+                viewModels[i].DiagnosisBoard = diagnosisBoard;
+                viewModels[i].FirstDiagnosisPS = firstDiagnosisProceedingSession;
+                viewModels[i].LastDiagnosisPS = lastDiagnosisProceedingSession;
+
+                viewModels[i].DisputeResolutionBoard = disputeResolutionBoard;
+                viewModels[i].FirstDisputeResolutionPS = firstDisputeResolutionProceedingSession;
+                viewModels[i].LastDisputeResolutionPS = lastDisputeResolutionProceedingSession;
+
+                i++;
+            }
         }
 
         public IActionResult OnGetCreateFile()
         {
-            searchModel = new FileSearchModel();
-            var archiveNo = _fileApplication.GetLastArchiveNumber(searchModel) == null ? _fileApplication.GetLastArchiveNumber(searchModel).ArchiveNo : (long)1;
+            fileSearchModel = new FileSearchModel();
+            var archiveNo = _fileApplication.GetLastArchiveNumber(fileSearchModel) == null ? _fileApplication.GetLastArchiveNumber(fileSearchModel).ArchiveNo : (long)1;
 
             var createFile = new CreateFile
             {
