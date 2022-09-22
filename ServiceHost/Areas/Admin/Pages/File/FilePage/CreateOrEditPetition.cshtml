@@ -49,7 +49,7 @@
         <input asp-for="File_Id" hidden/>
         <div class="modal-body">
             <div class="row">
-                <fieldset class="m-b-30" style="border: 1px solid #999797; border-radius: 10px; padding: revert">
+                <fieldset style="border: 1px solid #999797; border-radius: 10px; padding: revert">
                     <legend style="margin-bottom: 5px; font-size: large; border-bottom: 0px; color: #505458; width: 140px; text-align: center;"> شرح دادنامه </legend>
 
                     <div class="row">
@@ -57,21 +57,21 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label asp-for="FileData.ArchiveNo" class="control-label">  شماره بایگانی </label>
-                                <input type="text" class="form-control" asp-for="FileData.ArchiveNo">
+                                <input type="text" class="form-control" asp-for="FileData.ArchiveNo" readonly>
                                 <span asp-validation-for="FileData.ArchiveNo" class="error"></span>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label asp-for="FileData.FileClass" class="control-label"> کلاسه پرونده </label>
-                                <input type="text" class="form-control" asp-for="FileData.FileClass">
+                                <input type="text" class="form-control" asp-for="FileData.FileClass" readonly>
                                 <span asp-validation-for="FileData.FileClass" class="error"></span>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label asp-for="FileData.Reqester" class="control-label"> موکل </label>
-                                <select class="form-control select2-tag" asp-for="FileData.Reqester">
+                                <select class="form-control select2-tag" asp-for="FileData.Reqester" readonly>
                                     <option value="1">اکبر اکبرزاده</option>
                                 </select>
                             </div>
@@ -79,7 +79,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label asp-for="BoardProcessingStage" class="control-label"> مرحله رسیدگی </label>
-                                <select class="form-control select2-tag" asp-for="BoardProcessingStage">
+                                <select class="form-control select2-tag" asp-for="BoardProcessingStage" readonly>
                                     @if(Model.BoardType_Id == 1)
                                     {
                                         <option value="1">تشخیص</option>
@@ -94,14 +94,14 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label asp-for="PetitionIssuanceDate" class="control-label persianDateInput"> تاریخ صدور دادنامه </label>
-                                <input type="text" class="form-control" asp-for="PetitionIssuanceDate" readonly>
+                                <input type="text" class="form-control" asp-for="PetitionIssuanceDate">
                                 <span asp-validation-for="PetitionIssuanceDate" class="error"></span>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label asp-for="NotificationPetitionDate" class="control-label persianDateInput"> تاریخ ابلاغ دادنامه </label>
-                                <input type="text" class="form-control" asp-for="NotificationPetitionDate" readonly>
+                                <input type="text" class="form-control" asp-for="NotificationPetitionDate">
                                 <span asp-validation-for="NotificationPetitionDate" class="error"></span>
                             </div>
                         </div>
@@ -128,14 +128,15 @@
                            <div class="col-md-3 recordVerification">
                                 <div class="form-group">
                                     <label asp-for="CreateWorkHistory[i].FromDate" class="control-label"> از تاریخ </label>
-                                    <input type="text" class="form-control" asp-for="CreateWorkHistory[i].FromDate" readonly>
+                                    <input type="text" class="form-control" asp-for="CreateWorkHistory[i].FromDate" 
+                                           onfocusout="insertMinDate('CreateWorkHistory_' + @i + '__FromDate','CreateWorkHistory_' + @i + '__ToDate')">
                                     <span asp-validation-for="CreateWorkHistory[i].FromDate" class="error"></span>
                                 </div>
                             </div>
                             <div class="col-md-3 recordVerification">
                                 <div class="form-group">
                                     <label asp-for="CreateWorkHistory[i].ToDate" class="control-label"> تا تاریخ </label>
-                                    <input type="text" class="form-control" asp-for="CreateWorkHistory[i].ToDate" readonly>
+                                    <input type="text" class="form-control" asp-for="CreateWorkHistory[i].ToDate">
                                     <span asp-validation-for="CreateWorkHistory[i].ToDate" class="error"></span>
                                 </div>
                             </div>
@@ -190,14 +191,14 @@
                             </div><div class="col-md-4 penaltyTitles">
                                 <div class="form-group">
                                     <label asp-for="CreatePenaltyTitle[i].FromDate" class="control-label"> از تاریخ </label>
-                                    <input type="text" class="form-control" asp-for="CreatePenaltyTitle[i].FromDate" readonly>
+                                    <input type="text" class="form-control" asp-for="CreatePenaltyTitle[i].FromDate">
                                     <span asp-validation-for="CreatePenaltyTitle[i].FromDate" class="error"></span>
                                 </div>
                             </div>
                             <div class="col-md-4 penaltyTitles">
                                 <div class="form-group">
                                     <label asp-for="CreatePenaltyTitle[i].ToDate" class="control-label"> تا تاریخ </label>
-                                    <input type="text" class="form-control" asp-for="CreatePenaltyTitle[i].ToDate" readonly>
+                                    <input type="text" class="form-control" asp-for="CreatePenaltyTitle[i].ToDate">
                                     <span asp-validation-for="CreatePenaltyTitle[i].ToDate" class="error"></span>
                                 </div>
                             </div>
@@ -233,14 +234,12 @@
             </div>
         </div>
         <div class="modal-footer">
-
-            <button type="submit" class="btn btn-success btn-rounded waves-effect waves-light">ذخیره</button>
-
-            <button type="button" class="btn btn-default btn-rounded waves-effect waves-light m-b-5" data-dismiss="modal">بستن</button>
+            <div style="float: left">
+                <a href="#showmodal=@Url.Page("/File/FilePage/Index", "EditFile")" class="btn btn-default btn-rounded waves-effect waves-light">بستن</a>
+                <button type="submit" class="btn btn-success btn-rounded waves-effect waves-light">ذخیره</button>
+            </div>
         </div>
-
     </form>
-
 </div>
 
 
@@ -254,30 +253,27 @@
         format: 'YYYY/MM/DD',
         initialValueType: 'persian',
         initialValue: false,
-        //'position': [-270, 25],
+        'position': [-270, 25],
         autoClose: true,
 
         calendar: {
             persian: {
                 leapYearMode: 'astronomical'
             }
-        },
-        
-        onSelect: function(dateStr) 
-        {
-            //$(`#CreateWorkHistory_0__ToDate`).val(dateStr);
-             $(`#NotificationPetitionDate`).persianDatepicker({ 
-                 minDate: new Date(dateStr),
-                 format: 'YYYY/MM/DD',
-                 initialValueType: 'persian',
-                 initialValue: false,
-                 //'position': [-270, 25],
-                 autoClose: true,
+        }
+    });
+    
+    $('#NotificationPetitionDate').persianDatepicker({
+        format: 'YYYY/MM/DD',
+        initialValueType: 'persian',
+        initialValue: false,
+        'position': [-270, 25],
+        autoClose: true,
 
-                 calendar: {
-                     persian: {leapYearMode: 'astronomical'}
-                 }
-             })
+        calendar: {
+            persian: {
+                leapYearMode: 'astronomical'
+            }
         }
     });
     
@@ -295,19 +291,24 @@
         },
         
         onSelect: function(dateStr) 
-        {
-            //$(`#CreateWorkHistory_0__ToDate`).val(dateStr);
-             $(`#CreateWorkHistory_0__ToDate`).persianDatepicker({ 
-                 minDate: new Date(dateStr),
-                 format: 'YYYY/MM/DD',
-                 initialValueType: 'persian',
-                 initialValue: false,
-                 'position': [-270, 25],
-                 autoClose: true,
-                 calendar: {
-                     persian: {leapYearMode: 'astronomical'}
-                 }
-             })
+        {         
+            console.log("check")
+            $("#CreateWorkHistory_0__ToDate").val(dateStr);
+            $("#CreateWorkHistory_0__ToDate").datepicker({ minDate: new Date(dateStr)})
+        }
+    });
+    
+    $('#CreateWorkHistory_0__ToDate').persianDatepicker({
+        format: 'YYYY/MM/DD',
+        initialValueType: 'persian',
+        initialValue: false,
+        'position': [-270, 25],
+        autoClose: true,
+
+        calendar: {
+            persian: {
+                leapYearMode: 'astronomical'
+            }
         }
     });
     
@@ -322,22 +323,20 @@
             persian: {
                 leapYearMode: 'astronomical'
             }
-        },
-        
-        onSelect: function(dateStr) 
-        {
-            //$(`#CreatePenaltyTitle_0__ToDate`).val(dateStr);
-             $(`#CreatePenaltyTitle_0__ToDate`).persianDatepicker({ 
-                 minDate: new Date(dateStr),
-                 format: 'YYYY/MM/DD',
-                 initialValueType: 'persian',
-                 initialValue: false,
-                 'position': [-270, 25],
-                 autoClose: true,
-                 calendar: {
-                     persian: {leapYearMode: 'astronomical'}
-                 }
-             })
+        }
+    });
+    
+    $('#CreatePenaltyTitle_0__ToDate').persianDatepicker({
+        format: 'YYYY/MM/DD',
+        initialValueType: 'persian',
+        initialValue: false,
+        'position': [-270, 25],
+        autoClose: true,
+
+        calendar: {
+            persian: {
+                leapYearMode: 'astronomical'
+            }
         }
     });
 
@@ -366,14 +365,14 @@
         const html = `<div class="col-md-3 recordVerification">
                             <div class="form-group">
                                 <label class="control-label" for="CreateWorkHistory_${workhistoryCounter}__FromDate"> از تاریخ </label>
-                                <input type="text" class="form-control" id="CreateWorkHistory_${workhistoryCounter}__FromDate" name="CreateWorkHistory[${workhistoryCounter}].FromDate" value="" readonly>
+                                <input type="text" class="form-control" id="CreateWorkHistory_${workhistoryCounter}__FromDate" name="CreateWorkHistory[${workhistoryCounter}].FromDate" value="">
                                 <span class="error field-validation-valid" data-valmsg-for="CreateWorkHistory[${workhistoryCounter}].FromDate" data-valmsg-replace="true"></span>
                             </div>
                         </div>
                         <div class="col-md-3 recordVerification">
                             <div class="form-group">
                                 <label class="control-label" for="CreateWorkHistory_${workhistoryCounter}__ToDate"> تا تاریخ </label>
-                                <input type="text" class="form-control" id="CreateWorkHistory_${workhistoryCounter}__ToDate" name="CreateWorkHistory[${workhistoryCounter}].ToDate" value="" readonly>
+                                <input type="text" class="form-control" id="CreateWorkHistory_${workhistoryCounter}__ToDate" name="CreateWorkHistory[${workhistoryCounter}].ToDate" value="">
                                 <span class="error field-validation-valid" data-valmsg-for="CreateWorkHistory[${workhistoryCounter}].ToDate" data-valmsg-replace="true"></span>
                             </div>
                         </div>
@@ -415,22 +414,26 @@
             },
             
             onSelect: function(dateStr) 
-            {         
-                //$(`#CreateWorkHistory_${workhistoryCounter}__ToDate`).val(dateStr);
-                $(`#CreateWorkHistory_${workhistoryCounter}__ToDate`).persianDatepicker({ 
-                    minDate: new Date(dateStr),
-                    format: 'YYYY/MM/DD',
-                    initialValueType: 'persian',
-                    initialValue: false,
-                    'position': [-270, 25],
-                    autoClose: true,
-                    calendar: {
-                        persian: {leapYearMode: 'astronomical'}
-                    }
-                })
-            }
+        {         
+            console.log("check")
+            $(`#CreateWorkHistory_${workhistoryCounter}__ToDate`).val(dateStr);
+            $(`#CreateWorkHistory_${workhistoryCounter}__ToDate`).persianDatepicker({ minDate: new Date(dateStr),format: 'YYYY/MM/DD',})
+        }
         });
         
+        //$(`#CreateWorkHistory_${workhistoryCounter}__ToDate`).persianDatepicker({
+        //    format: 'YYYY/MM/DD',
+        //    initialValueType: 'persian',
+        //    initialValue: false,
+        //    'position': [-270, 25],
+        //    autoClose: true,
+
+        //    calendar: {
+        //        persian: {
+        //            leapYearMode: 'astronomical'
+        //        }
+        //    }
+        //});
     }
     
     function addNewFormPenaltyTitles(flag) {
@@ -453,15 +456,15 @@
                             </div>
                         </div><div class="col-md-4 penaltyTitles">
                             <div class="form-group">
-                                <label class="control-label" for="CreatePenaltyTitle_${penaltyTitleCounter}__FromDate"> از تاریخ </label>
-                                <input type="text" class="form-control" id="CreatePenaltyTitle_${penaltyTitleCounter}__FromDate" name="CreatePenaltyTitle[${penaltyTitleCounter}].FromDate" value="" readonly>
+                                <label class="control-label" for="CreatePenaltyTitle_${penaltyTitleCounter}__FromDate"> از تارخ </label>
+                                <input type="text" class="form-control" id="CreatePenaltyTitle_${penaltyTitleCounter}__FromDate" name="CreatePenaltyTitle[${penaltyTitleCounter}].FromDate" value="">
                                 <span class="error field-validation-valid" data-valmsg-for="CreatePenaltyTitle[${penaltyTitleCounter}].FromDate" data-valmsg-replace="true"></span>
                             </div>
                         </div>
                         <div class="col-md-4 penaltyTitles">
                             <div class="form-group">
                                 <label class="control-label" for="CreatePenaltyTitle_${penaltyTitleCounter}__ToDate"> تا تاریخ </label>
-                                <input type="text" class="form-control" id="CreatePenaltyTitle_${penaltyTitleCounter}__ToDate" name="CreatePenaltyTitle[${penaltyTitleCounter}].ToDate" value="" readonly>
+                                <input type="text" class="form-control" id="CreatePenaltyTitle_${penaltyTitleCounter}__ToDate" name="CreatePenaltyTitle[${penaltyTitleCounter}].ToDate" value="">
                                 <span class="error field-validation-valid" data-valmsg-for="CreatePenaltyTitle[${penaltyTitleCounter}].ToDate" data-valmsg-replace="true"></span>
                             </div>
                         </div>
@@ -493,24 +496,21 @@
                 persian: {
                     leapYearMode: 'astronomical'
                 }
-            },
-            
-            onSelect: function(dateStr) 
-            {         
-                $(`#CreatePenaltyTitle_${penaltyTitleCounter}__ToDate`).persianDatepicker({ 
-                    minDate: new Date(dateStr),
-                    format: 'YYYY/MM/DD',
-                    initialValueType: 'persian',
-                    initialValue: false,
-                    'position': [-270, 25],
-                    autoClose: true,
-
-                    calendar: {
-                        persian: {leapYearMode: 'astronomical'}
-                    }
-                })
             }
+        });
+        
+        $(`#CreatePenaltyTitle_${penaltyTitleCounter}__ToDate`).persianDatepicker({
+            format: 'YYYY/MM/DD',
+            initialValueType: 'persian',
+            initialValue: false,
+            'position': [-270, 25],
+            autoClose: true,
 
+            calendar: {
+                persian: {
+                    leapYearMode: 'astronomical'
+                }
+            }
         });
 
     }

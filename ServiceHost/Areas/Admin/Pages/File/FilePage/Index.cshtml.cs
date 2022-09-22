@@ -108,37 +108,47 @@ namespace ServiceHost.Areas.Admin.Pages.File.FilePage
             if (!result.IsSuccedded) return new JsonResult(result);
 
 
-            if (command.createDiagnosisBoard.Id == 0)
+            if (command.createDiagnosisBoard.BoardChairman != null ||
+                command.createDiagnosisBoard.Branch != null ||
+                command.createDiagnosisBoard.DisputeResolutionPetitionDate != null ||
+                command.createDiagnosisBoard.ExpertReport != null)
             {
-                result = _boardApplication.Create(command.createDiagnosisBoard);
-            }
-            else
-            {
-                result = _boardApplication.Edit(command.createDiagnosisBoard);
-            }
+                if (command.createDiagnosisBoard.Id == 0)
+                {
+                    result = _boardApplication.Create(command.createDiagnosisBoard);
+                }
+                else
+                {
+                    result = _boardApplication.Edit(command.createDiagnosisBoard);
+                }
 
-            if (!result.IsSuccedded) return new JsonResult(result);
+                if (!result.IsSuccedded) return new JsonResult(result);
 
-            result = _proceedingSessionApplication.CreateProceedingSessions(command.createDiagnosisPS, result.EntityId);
+                result = _proceedingSessionApplication.CreateProceedingSessions(command.createDiagnosisPS, result.EntityId);
 
-            if (!result.IsSuccedded) return new JsonResult(result);
-
-
-            if (command.createDisputeResolutionBoard.Id == 0)
-            {
-                result = _boardApplication.Create(command.createDisputeResolutionBoard);
-            }
-            else
-            {
-                result = _boardApplication.Edit(command.createDisputeResolutionBoard);
+                if (!result.IsSuccedded) return new JsonResult(result);
             }
 
-            if (!result.IsSuccedded) return new JsonResult(result);
+            if (command.createDisputeResolutionBoard.BoardChairman != null ||
+                command.createDisputeResolutionBoard.Branch != null ||
+                command.createDisputeResolutionBoard.DisputeResolutionPetitionDate != null ||
+                command.createDisputeResolutionBoard.ExpertReport != null)
+            {
+                if (command.createDisputeResolutionBoard.Id == 0)
+                {
+                    result = _boardApplication.Create(command.createDisputeResolutionBoard);
+                }
+                else
+                {
+                    result = _boardApplication.Edit(command.createDisputeResolutionBoard);
+                }
 
-            result = _proceedingSessionApplication.CreateProceedingSessions(command.createDisputeResolutionPS, result.EntityId);
+                if (!result.IsSuccedded) return new JsonResult(result);
 
-            if (!result.IsSuccedded) return new JsonResult(result);
+                result = _proceedingSessionApplication.CreateProceedingSessions(command.createDisputeResolutionPS, result.EntityId);
 
+                if (!result.IsSuccedded) return new JsonResult(result);
+            }
 
             return new JsonResult(result);
         }
@@ -193,6 +203,7 @@ namespace ServiceHost.Areas.Admin.Pages.File.FilePage
 
 
             result = _workHistoryApplication.CreateWorkHistories(command.CreateWorkHistory, result.EntityId);
+        }
 
             if (!result.IsSuccedded) return new JsonResult(result);
 
@@ -205,8 +216,6 @@ namespace ServiceHost.Areas.Admin.Pages.File.FilePage
             return new JsonResult(result);
         }
 
-
-
         public IActionResult OnGetDetails(long id)
         {
             var editJob = _fileApplication.GetDetails(id);
@@ -214,22 +223,12 @@ namespace ServiceHost.Areas.Admin.Pages.File.FilePage
             return Partial("Details", editJob);
         }
 
-        public JsonResult OnGetCheckUniqueArchiveNo(int id)
+        public JsonResult OnPostCheckUniqueArchiveNo(string archiveNo)
         {
-            var sModel = new FileSearchModel { ArchiveNo = (long)id };
+            var sModel = new FileSearchModel { ArchiveNo = long.Parse(archiveNo) };
             var vModel = _fileApplication.Search(sModel);
-            return new JsonResult(new { stat = vModel == null ? true : false, message = vModel == null ? "" : "شماره بایگانی تکراری است" });
-        }
 
-        private bool IsValid<T>(T inputModel)
-        {
-            var property = this.GetType().GetProperties().Where(x => x.PropertyType == inputModel.GetType()).FirstOrDefault();
-
-            var hasErrors = ModelState.Values
-                .Where(value => value.GetType().GetProperty("Key").GetValue(value).ToString().Contains(property.Name))
-                .Any(value => value.Errors.Any());
-
-            return !hasErrors;
+            return new JsonResult(new { stat = vModel.Count() == 0 ? true : false, message = vModel == null ? "" : "شماره بایگانی تکراری است" });
         }
 
     }
