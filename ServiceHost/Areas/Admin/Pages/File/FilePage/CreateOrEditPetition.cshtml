@@ -1,5 +1,9 @@
-﻿@model Files.Application.Petition.CreatePetition
+﻿@model Files.Application.Petition.EditPetition
+@{
+    //var penaltyTitleCounter = @Model.CreatePenaltyTitle.Count == 0 ? 0 : @Model.CreatePenaltyTitle.Count - 1;
+    //var workhistoryCounter = @Model.CreateWorkHistory.Count ==  0 ? 0 : @Model.CreateWorkHistory.Count - 1;
 
+}
     <style>
         /* .modal-dialog {
             width: 94% !important;
@@ -34,36 +38,40 @@
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 
-    <form asp-page="./Index" asp-page-handler="CreatePetition" id="workshops" autocomplete="off"
+    <form asp-page="./Index" asp-page-handler="CreateOrEditPetition" id="workshops" autocomplete="off"
           method="post"
           data-ajax="true"
           data-callback=""
-          data-action="Refresh"
+          data-action="LoadFileEditPage"
           enctype="multipart/form-data">
+        <input asp-for="Id" hidden/>
+        <input asp-for="BoardType_Id" hidden/>
+        <input asp-for="File_Id" hidden/>
         <div class="modal-body">
             <div class="row">
-                <fieldset class="m-b-30" style="border: 1px solid #999797; border-radius: 10px; padding: revert">
+                <fieldset style="border: 1px solid #999797; border-radius: 10px; padding: revert">
                     <legend style="margin-bottom: 5px; font-size: large; border-bottom: 0px; color: #505458; width: 140px; text-align: center;"> شرح دادنامه </legend>
 
                     <div class="row">
+                        <input asp-for="FileData.Id" hidden/>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label asp-for="FileData.ArchiveNo" class="control-label">  شماره بایگانی </label>
-                                <input type="text" class="form-control" asp-for="FileData.ArchiveNo">
+                                <input type="text" class="form-control" asp-for="FileData.ArchiveNo" readonly>
                                 <span asp-validation-for="FileData.ArchiveNo" class="error"></span>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label asp-for="FileData.FileClass" class="control-label"> کلاسه پرونده </label>
-                                <input type="text" class="form-control" asp-for="FileData.FileClass">
+                                <input type="text" class="form-control" asp-for="FileData.FileClass" readonly>
                                 <span asp-validation-for="FileData.FileClass" class="error"></span>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label asp-for="FileData.Reqester" class="control-label"> موکل </label>
-                                <select class="form-control select2-tag" asp-for="FileData.Reqester">
+                                <select class="form-control select2-tag" asp-for="FileData.Reqester" readonly>
                                     <option value="1">اکبر اکبرزاده</option>
                                 </select>
                             </div>
@@ -71,14 +79,14 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label asp-for="BoardProcessingStage" class="control-label"> مرحله رسیدگی </label>
-                                <select class="form-control select2-tag" asp-for="BoardProcessingStage">
-                                    @if(Model.BoardTypeId == false)
+                                <select class="form-control select2-tag" asp-for="BoardProcessingStage" readonly>
+                                    @if(Model.BoardType_Id == 1)
                                     {
-                                        <option value="0">تشخیص</option>
+                                        <option value="1">تشخیص</option>
                                     }
                                     else
                                     {
-                                        <option value="1">حل اختلاف</option>
+                                        <option value="2">حل اختلاف</option>
                                     }
                                 </select>
                             </div>
@@ -114,42 +122,49 @@
                     </div>
                     <div id="recordVerification" class="row m-t-15">
                         <h4 class="m-r-10">احراز سابقه</h4>
-                        <div class="col-md-3 recordVerification">
-                            <div class="form-group">
-                                <label asp-for="CreateWorkHistory[0].FromDate" class="control-label"> از تاریخ </label>
-                                <input type="text" class="form-control" asp-for="CreateWorkHistory[0].FromDate" 
-                                       onfocusout="insertMinDate('CreateWorkHistory_0__FromDate','CreateWorkHistory_0__ToDate')">
-                                <span asp-validation-for="CreateWorkHistory[0].FromDate" class="error"></span>
+                       
+                        @for(var i = 0; i < @Model.CreateWorkHistory.Count; i++)
+                        {
+                           <div class="col-md-3 recordVerification">
+                                <div class="form-group">
+                                    <label asp-for="CreateWorkHistory[i].FromDate" class="control-label"> از تاریخ </label>
+                                    <input type="text" class="form-control" asp-for="CreateWorkHistory[i].FromDate" 
+                                           onfocusout="insertMinDate('CreateWorkHistory_' + @i + '__FromDate','CreateWorkHistory_' + @i + '__ToDate')">
+                                    <span asp-validation-for="CreateWorkHistory[i].FromDate" class="error"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-3 recordVerification">
-                            <div class="form-group">
-                                <label asp-for="CreateWorkHistory[0].ToDate" class="control-label"> تا تاریخ </label>
-                                <input type="text" class="form-control" asp-for="CreateWorkHistory[0].ToDate">
-                                <span asp-validation-for="CreateWorkHistory[0].ToDate" class="error"></span>
+                            <div class="col-md-3 recordVerification">
+                                <div class="form-group">
+                                    <label asp-for="CreateWorkHistory[i].ToDate" class="control-label"> تا تاریخ </label>
+                                    <input type="text" class="form-control" asp-for="CreateWorkHistory[i].ToDate">
+                                    <span asp-validation-for="CreateWorkHistory[i].ToDate" class="error"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-3 recordVerification">
-                            <div class="form-group">
-                                <label asp-for="CreateWorkHistory[0].WorkingHoursPerDay" class="control-label"> ساعت کار در روز </label>
-                                <input type="text" class="form-control" asp-for="CreateWorkHistory[0].WorkingHoursPerDay">
-                                <span asp-validation-for="CreateWorkHistory[0].WorkingHoursPerDay" class="error"></span>
+                            <div class="col-md-3 recordVerification">
+                                <div class="form-group">
+                                    <label asp-for="CreateWorkHistory[i].WorkingHoursPerDay" class="control-label"> ساعت کار در روز </label>
+                                    <input type="text" class="form-control" asp-for="CreateWorkHistory[i].WorkingHoursPerDay">
+                                    <span asp-validation-for="CreateWorkHistory[i].WorkingHoursPerDay" class="error"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-3 recordVerification">
-                            <div class="form-group">
-                                <label asp-for="CreateWorkHistory[0].WorkingHoursPerWeek" class="control-label"> ساعت کار در هفته </label>
-                                <input type="text" class="form-control" asp-for="CreateWorkHistory[0].WorkingHoursPerWeek">
-                                <span asp-validation-for="CreateWorkHistory[0].WorkingHoursPerWeek" class="error"></span>
+                            <div class="col-md-3 recordVerification">
+                                <div class="form-group">
+                                    <label asp-for="CreateWorkHistory[i].WorkingHoursPerWeek" class="control-label"> ساعت کار در هفته </label>
+                                    <input type="text" class="form-control" asp-for="CreateWorkHistory[i].WorkingHoursPerWeek">
+                                    <span asp-validation-for="CreateWorkHistory[i].WorkingHoursPerWeek" class="error"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-12 recordVerification">
-                            <div class="form-group">
-                                <label asp-for="CreateWorkHistory[0].Description" class="control-label"> توضیحات </label>
-                                <textarea class="form-control" asp-for="CreateWorkHistory[0].Description"></textarea>
-                                <span asp-validation-for="CreateWorkHistory[0].Description" class="error"></span>
+                            <div class="col-md-12 recordVerification">
+                                <div class="form-group">
+                                    <label asp-for="CreateWorkHistory[i].Description" class="control-label"> توضیحات </label>
+                                    <textarea class="form-control" asp-for="CreateWorkHistory[i].Description"></textarea>
+                                    <span asp-validation-for="CreateWorkHistory[i].Description" class="error"></span>
+                                </div>
                             </div>
-                        </div>
+                           
+                       }
+
+                        
                         <div class="col-md-8 addRecordVerificationFormButton"></div>
                         <div class="col-md-4">
                             <a onclick="addNewFormWorkhistory('addRecordVerificationFormButton')" class="btn btn-rounded btn-success waves-effect waves-light col-xs-12 m-b-30">+ افزودن عنوان</a>
@@ -157,53 +172,57 @@
                     </div>
                     
                     <div id="penaltyTitles" class="row m-t-15">
-                        <div class="col-md-4 penaltyTitles">
-                            <div class="form-group">
-                                <label asp-for="CreatePenaltyTitle[0].Title" class="control-label"> عنوان </label>
-                                <input type="text" class="form-control" asp-for="CreatePenaltyTitle[0].Title">
-                                <span asp-validation-for="CreatePenaltyTitle[0].Title" class="error"></span>
+                    
+                        @for(var i = 0; i < @Model.CreatePenaltyTitle.Count; i++)
+                        {
+                            <div class="col-md-4 penaltyTitles">
+                                <div class="form-group">
+                                    <label asp-for="CreatePenaltyTitle[i].Title" class="control-label"> عنوان </label>
+                                    <input type="text" class="form-control" asp-for="CreatePenaltyTitle[i].Title">
+                                    <span asp-validation-for="CreatePenaltyTitle[i].Title" class="error"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-4 penaltyTitles">
-                            <div class="form-group">
-                                <label asp-for="CreatePenaltyTitle[0].Day" class="control-label"> روز </label>
-                                <input type="text" class="form-control" asp-for="CreatePenaltyTitle[0].Day">
-                                <span asp-validation-for="CreatePenaltyTitle[0].Day" class="error"></span>
+                            <div class="col-md-4 penaltyTitles">
+                                <div class="form-group">
+                                    <label asp-for="CreatePenaltyTitle[i].Day" class="control-label"> روز </label>
+                                    <input type="text" class="form-control" asp-for="CreatePenaltyTitle[i].Day">
+                                    <span asp-validation-for="CreatePenaltyTitle[i].Day" class="error"></span>
+                                </div>
+                            </div><div class="col-md-4 penaltyTitles">
+                                <div class="form-group">
+                                    <label asp-for="CreatePenaltyTitle[i].FromDate" class="control-label"> از تاریخ </label>
+                                    <input type="text" class="form-control" asp-for="CreatePenaltyTitle[i].FromDate">
+                                    <span asp-validation-for="CreatePenaltyTitle[i].FromDate" class="error"></span>
+                                </div>
                             </div>
-                        </div><div class="col-md-4 penaltyTitles">
-                            <div class="form-group">
-                                <label asp-for="CreatePenaltyTitle[0].FromDate" class="control-label"> از تارخ </label>
-                                <input type="text" class="form-control" asp-for="CreatePenaltyTitle[0].FromDate">
-                                <span asp-validation-for="CreatePenaltyTitle[0].FromDate" class="error"></span>
+                            <div class="col-md-4 penaltyTitles">
+                                <div class="form-group">
+                                    <label asp-for="CreatePenaltyTitle[i].ToDate" class="control-label"> تا تاریخ </label>
+                                    <input type="text" class="form-control" asp-for="CreatePenaltyTitle[i].ToDate">
+                                    <span asp-validation-for="CreatePenaltyTitle[i].ToDate" class="error"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-4 penaltyTitles">
-                            <div class="form-group">
-                                <label asp-for="CreatePenaltyTitle[0].ToDate" class="control-label"> تا تاریخ </label>
-                                <input type="text" class="form-control" asp-for="CreatePenaltyTitle[0].ToDate">
-                                <span asp-validation-for="CreatePenaltyTitle[0].ToDate" class="error"></span>
+                            <div class="col-md-4 penaltyTitles">
+                                <div class="form-group">
+                                    <label asp-for="CreatePenaltyTitle[i].PaidAmount" class="control-label"> علی الحساب پرداختی </label>
+                                    <input type="text" class="form-control" asp-for="CreatePenaltyTitle[i].PaidAmount">
+                                    <span asp-validation-for="CreatePenaltyTitle[i].PaidAmount" class="error"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-4 penaltyTitles">
-                            <div class="form-group">
-                                <label asp-for="CreatePenaltyTitle[0].PaidAmount" class="control-label"> علی الحساب پرداختی </label>
-                                <input type="text" class="form-control" asp-for="CreatePenaltyTitle[0].PaidAmount">
-                                <span asp-validation-for="CreatePenaltyTitle[0].PaidAmount" class="error"></span>
+                            <div class="col-md-4 penaltyTitles">
+                                <div class="form-group">
+                                    <label asp-for="CreatePenaltyTitle[i].RemainingAmount" class="control-label"> مبلغ باقیمانده </label>
+                                    <input type="text" class="form-control" asp-for="CreatePenaltyTitle[i].RemainingAmount">
+                                    <span asp-validation-for="CreatePenaltyTitle[i].RemainingAmount" class="error"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-4 penaltyTitles">
-                            <div class="form-group">
-                                <label asp-for="CreatePenaltyTitle[0].RemainingAmount" class="control-label"> مبلغ باقیمانده </label>
-                                <input type="text" class="form-control" asp-for="CreatePenaltyTitle[0].RemainingAmount">
-                                <span asp-validation-for="CreatePenaltyTitle[0].RemainingAmount" class="error"></span>
-                            </div>
-                        </div>
+                        }
+
                         <div class="col-md-8 penaltyTitlesFormButton"></div>
                         <div class="col-md-4">
                             <a onclick="addNewFormPenaltyTitles('penaltyTitlesFormButton')" class="btn btn-rounded btn-success waves-effect waves-light col-xs-12 m-b-30">+ افزودن عنوان</a>
                         </div>
                     </div>
-                    
                     <div class="col-md-12">
                         <div class="form-group">
                             <label asp-for="Description" class="control-label"> توضیحات </label>
@@ -215,14 +234,12 @@
             </div>
         </div>
         <div class="modal-footer">
-
-            <button type="submit" class="btn btn-success btn-rounded waves-effect waves-light">ذخیره</button>
-
-            <button type="button" class="btn btn-default btn-rounded waves-effect waves-light m-b-5" data-dismiss="modal">بستن</button>
+            <div style="float: left">
+                <a href="#showmodal=@Url.Page("/File/FilePage/Index", "EditFile")" class="btn btn-default btn-rounded waves-effect waves-light">بستن</a>
+                <button type="submit" class="btn btn-success btn-rounded waves-effect waves-light">ذخیره</button>
+            </div>
         </div>
-
     </form>
-
 </div>
 
 
@@ -271,6 +288,13 @@
             persian: {
                 leapYearMode: 'astronomical'
             }
+        },
+        
+        onSelect: function(dateStr) 
+        {         
+            console.log("check")
+            $("#CreateWorkHistory_0__ToDate").val(dateStr);
+            $("#CreateWorkHistory_0__ToDate").datepicker({ minDate: new Date(dateStr)})
         }
     });
     
@@ -319,18 +343,18 @@
 </script>
 <script>
     
-    var penaltyTitleCounter = 0;
-    var workhistoryCounter = 0;
+    var penaltyTitleCounter = @Model.CreatePenaltyTitle.Count  - 1;
+    var workhistoryCounter = @Model.CreateWorkHistory.Count - 1;
 
     function addNewFormWorkhistory(flag) {
 
         //var content = $("#" + dataType + " ." + dataType);
-        ////var cn = $(content[0]).clone(true);
+        ////var cn = $(content[i]).clone(true);
 
         ////$(cn).find('label').html('تاریخ نوبت ' + turns[$(content).size()/3 - 1] + ' رسیدگی');
          
         ////$(cn).insertBefore("#" + dataType + " .addProceedingSessionFormButton");
-        //$(content[0]).clone().insertBefore("#" + dataType + " ." + flag);
+        //$(content[i]).clone().insertBefore("#" + dataType + " ." + flag);
         //$(content[1]).clone().insertBefore("#" + dataType + " ." + flag);
         //$(content[2]).clone().insertBefore("#" + dataType + " ." + flag);
         //$(content[3]).clone().insertBefore("#" + dataType + " ." + flag);
@@ -387,22 +411,29 @@
                 persian: {
                     leapYearMode: 'astronomical'
                 }
-            }
+            },
+            
+            onSelect: function(dateStr) 
+        {         
+            console.log("check")
+            $(`#CreateWorkHistory_${workhistoryCounter}__ToDate`).val(dateStr);
+            $(`#CreateWorkHistory_${workhistoryCounter}__ToDate`).persianDatepicker({ minDate: new Date(dateStr),format: 'YYYY/MM/DD',})
+        }
         });
         
-        $(`#CreateWorkHistory_${workhistoryCounter}__ToDate`).persianDatepicker({
-            format: 'YYYY/MM/DD',
-            initialValueType: 'persian',
-            initialValue: false,
-            'position': [-270, 25],
-            autoClose: true,
+        //$(`#CreateWorkHistory_${workhistoryCounter}__ToDate`).persianDatepicker({
+        //    format: 'YYYY/MM/DD',
+        //    initialValueType: 'persian',
+        //    initialValue: false,
+        //    'position': [-270, 25],
+        //    autoClose: true,
 
-            calendar: {
-                persian: {
-                    leapYearMode: 'astronomical'
-                }
-            }
-        });
+        //    calendar: {
+        //        persian: {
+        //            leapYearMode: 'astronomical'
+        //        }
+        //    }
+        //});
     }
     
     function addNewFormPenaltyTitles(flag) {

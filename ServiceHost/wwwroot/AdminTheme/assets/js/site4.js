@@ -16,6 +16,7 @@ SinglePage.LoadModal = function () {
             $.validator.unobtrusive.parse(newForm);
             showModal();
         }).fail(function (error) {
+            console.log(error)
             alert("خطایی رخ داده، لطفا با مدیر سیستم تماس بگیرید.");
         });
 };
@@ -89,6 +90,7 @@ $(document).ready(function () {
                         CallBackHandler(data, action, form);
                     },
                     error: function (data) {
+                        console.log(data)
                         alert("خطایی رخ داده است. لطفا با مدیر سیستم تماس بگیرید.");
                     }
                 });
@@ -292,6 +294,25 @@ function CallBackHandler(data, action, form) {
             } else {
                 $.Notification.autoHideNotify('error', 'top center', 'پیام سیستم ', itemss[6].vall);
             }
+
+        case "LoadFileEditPage" :
+            if (data.isSuccedded) {
+
+                $.Notification.autoHideNotify('success', 'top center', 'پیام سیستم ', data.message);
+                setTimeout(function () {
+                    window.location.href = "#showmodal=/Admin/File/FilePage?handler=EditFile";
+
+
+
+                }, 1000);
+
+            } else {
+                /*alert(data.message);*/
+
+                $.Notification.autoHideNotify('error', 'top center', 'پیام سیستم ', data.message);
+
+            }
+            break;  
         
         default:
     }

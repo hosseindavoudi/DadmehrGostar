@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace File.EfCore.Migrations
 {
-    public partial class init : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,66 +11,65 @@ namespace File.EfCore.Migrations
                 name: "BoardTypes",
                 columns: table => new
                 {
-                    id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BoardTypes", x => x.id);
+                    table.PrimaryKey("PK_BoardTypes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Files",
                 columns: table => new
                 {
-                    id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ArchiveNo = table.Column<long>(type: "bigint", nullable: false),
                     ClientVisitDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ProceederReference = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Reqester = table.Column<long>(type: "bigint", nullable: false),
                     Summoned = table.Column<long>(type: "bigint", nullable: false),
-                    Client = table.Column<bool>(type: "bit", nullable: false),
+                    Client = table.Column<int>(type: "int", nullable: false),
                     FileClass = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    HasMandate = table.Column<bool>(type: "bit", nullable: false),
+                    HasMandate = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Files", x => x.id);
+                    table.PrimaryKey("PK_Files", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Boards",
                 columns: table => new
                 {
-                    id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DisputeResolutionPetitionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Branch = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     BoardChairman = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ExpertReport = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     File_Id = table.Column<long>(type: "bigint", nullable: false),
-                    BoardType_Id = table.Column<long>(type: "bigint", nullable: false),
+                    BoardType_Id = table.Column<int>(type: "int", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Boards", x => x.id);
+                    table.PrimaryKey("PK_Boards", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Boards_BoardTypes_BoardType_Id",
                         column: x => x.BoardType_Id,
                         principalTable: "BoardTypes",
-                        principalColumn: "id",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Boards_Files_File_Id",
                         column: x => x.File_Id,
                         principalTable: "Files",
-                        principalColumn: "id",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -78,31 +77,31 @@ namespace File.EfCore.Migrations
                 name: "Petitions",
                 columns: table => new
                 {
-                    id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PetitionIssuanceDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     NotificationPetitionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     TotalPenalty = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TotalPenaltyTitles = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Board_Id = table.Column<long>(type: "bigint", nullable: false),
+                    BoardType_Id = table.Column<int>(type: "int", nullable: false),
                     File_Id = table.Column<long>(type: "bigint", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Petitions", x => x.id);
+                    table.PrimaryKey("PK_Petitions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Petitions_Boards_Board_Id",
-                        column: x => x.Board_Id,
-                        principalTable: "Boards",
-                        principalColumn: "id",
+                        name: "FK_Petitions_BoardTypes_BoardType_Id",
+                        column: x => x.BoardType_Id,
+                        principalTable: "BoardTypes",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_Petitions_Files_File_Id",
                         column: x => x.File_Id,
                         principalTable: "Files",
-                        principalColumn: "id",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -110,7 +109,7 @@ namespace File.EfCore.Migrations
                 name: "ProceedingSessions",
                 columns: table => new
                 {
-                    id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Time = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -119,12 +118,12 @@ namespace File.EfCore.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProceedingSessions", x => x.id);
+                    table.PrimaryKey("PK_ProceedingSessions", x => x.Id);
                     table.ForeignKey(
                         name: "FK_ProceedingSessions_Boards_Board_Id",
                         column: x => x.Board_Id,
                         principalTable: "Boards",
-                        principalColumn: "id",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -132,24 +131,25 @@ namespace File.EfCore.Migrations
                 name: "PenaltyTitles",
                 columns: table => new
                 {
-                    id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FromDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ToDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Day = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PaidAmount = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RemainingAmount = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Petition_Id = table.Column<long>(type: "bigint", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PenaltyTitles", x => x.id);
+                    table.PrimaryKey("PK_PenaltyTitles", x => x.Id);
                     table.ForeignKey(
                         name: "FK_PenaltyTitles_Petitions_Petition_Id",
                         column: x => x.Petition_Id,
                         principalTable: "Petitions",
-                        principalColumn: "id",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -157,7 +157,7 @@ namespace File.EfCore.Migrations
                 name: "WorkHistories",
                 columns: table => new
                 {
-                    id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FromDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ToDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -169,12 +169,12 @@ namespace File.EfCore.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_WorkHistories", x => x.id);
+                    table.PrimaryKey("PK_WorkHistories", x => x.Id);
                     table.ForeignKey(
                         name: "FK_WorkHistories_Petitions_Petition_Id",
                         column: x => x.Petition_Id,
                         principalTable: "Petitions",
-                        principalColumn: "id",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -194,9 +194,9 @@ namespace File.EfCore.Migrations
                 column: "Petition_Id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Petitions_Board_Id",
+                name: "IX_Petitions_BoardType_Id",
                 table: "Petitions",
-                column: "Board_Id");
+                column: "BoardType_Id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Petitions_File_Id",
@@ -226,10 +226,10 @@ namespace File.EfCore.Migrations
                 name: "WorkHistories");
 
             migrationBuilder.DropTable(
-                name: "Petitions");
+                name: "Boards");
 
             migrationBuilder.DropTable(
-                name: "Boards");
+                name: "Petitions");
 
             migrationBuilder.DropTable(
                 name: "BoardTypes");

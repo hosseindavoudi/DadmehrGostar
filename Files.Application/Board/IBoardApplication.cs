@@ -11,7 +11,8 @@ namespace Files.Application.Board
     {
         OperationResult Create(CreateBoard command);
         OperationResult Edit(EditBoard command);
-        EditBoard GetDetails(long id);
+        EditBoard GetDetails(long id); 
+        EditBoard GetDetails(long fileId, int boardTypeId);
         List<BoardViewModel> Search(BoardSearchModel searchModel);
     }
 }

@@ -23,19 +23,19 @@ namespace File.Contract
         {
             var operation = new OperationResult();
 
-            //var fromDate = new DateTime();
-            //fromDate = command.FromDate.ToGeorgian();
+            var fromDate = new DateTime();
+            fromDate = command.FromDate.ToGeorgian();
 
-            //var toDate = new DateTime();
-            //toDate = command.ToDate.ToGeorgian();
+            var toDate = new DateTime();
+            toDate = command.ToDate.ToGeorgian();
 
             //TODO if
-            //if(_BoardRepository.Exists(x=>x.Branch == command.Branch))
-            //    operation.Failed("fail message")
+            //if (_BoardRepository.Exists(x => x.Branch == command.Branch))
+            //        operation.Failed("fail message")
 
-            //var workHistory = new WorkHistory(fromDate, toDate, command.WorkingHoursPerDay, command.WorkingHoursPerWeek, command.Description,command.Petition_Id);
-            //_workHistoryRepository.Create(workHistory);
-            //_workHistoryRepository.SaveChanges();
+            var workHistory = new WorkHistory(fromDate, toDate, command.WorkingHoursPerDay, command.WorkingHoursPerWeek, command.Description, command.Petition_Id);
+            _workHistoryRepository.Create(workHistory);
+            _workHistoryRepository.SaveChanges();
 
             return operation.Succcedded();
         }
@@ -59,6 +59,35 @@ namespace File.Contract
             //_workHistoryRepository.SaveChanges();
 
             return operation.Succcedded();
+        }
+
+        public List<EditWorkHistory> Search(long petitionId)
+        {
+            return _workHistoryRepository.Search(petitionId);
+        }
+
+        public OperationResult CreateWorkHistories(List<EditWorkHistory> workHistories, long petitionId)
+        {
+            var operation = new OperationResult();
+
+            RemoveWorkHistories(petitionId);
+
+            foreach (var obj in workHistories)
+            {
+                obj.Petition_Id = petitionId;
+                obj.Id = 0;
+
+                Create(obj);
+            }
+
+            return operation.Succcedded();
+        }
+
+        public void RemoveWorkHistories(long petitionId)
+        {
+            var objects = Search(petitionId);
+
+            _workHistoryRepository.RemoveWorkHistories(objects);
         }
 
     }

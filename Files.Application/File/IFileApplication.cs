@@ -13,5 +13,7 @@ namespace Files.Application.File
         OperationResult Edit(EditFile command);
         EditFile GetDetails(long id);
         List<FileViewModel> Search(FileSearchModel searchModel);
+
+        FileViewModel GetLastArchiveNumber(FileSearchModel searchModel);
     }
 }

@@ -11,6 +11,7 @@ namespace File.Domain.Petition
     public interface IPetitionRepository : IRepository<long, Petition>
     {
         EditPetition GetDetails(long id);
+        EditPetition GetDetails(long fileId, int boardTypeId);
         List<PetitionViewModel> Search(PetitionSearchModel searchModel);
     }
 }

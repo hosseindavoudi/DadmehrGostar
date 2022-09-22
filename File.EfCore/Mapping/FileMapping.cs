@@ -14,7 +14,7 @@ namespace File.EfCore.Mapping
         public void Configure(EntityTypeBuilder<Domain.File.File> builder)
         {
             builder.ToTable("Files");
-            builder.HasKey(x => x.id);
+            builder.HasKey(x => x.Id);
 
             //TODO
             //add validations

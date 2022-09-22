@@ -15,6 +15,12 @@ using File.EfCore;
 using File.EfCore.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Files.Application.WorkHistory;
+using File.Domain.WorkHistory;
+using Files.Application.PenaltyTitle;
+using File.Domain.PenaltyTitle;
+using Files.Application.ProceedingSession;
+using File.Domain.ProceedingSession;
 
 namespace File.Configuration
 {
@@ -30,6 +36,15 @@ namespace File.Configuration
 
             service.AddTransient<IPetitionApplication, PetitionApplication>();
             service.AddTransient<IPetitionRepository, PetitionRepository>();
+            
+            service.AddTransient<IWorkHistoryApplication, WorkHistoryApplication>();
+            service.AddTransient<IWorkHistoryRepository, WorkHistoryRepository>();
+            
+            service.AddTransient<IPenaltyTitleApplication, PenaltyTitleApplication>();
+            service.AddTransient<IPenaltyTitleRepository, PenaltyTitleRepository>();
+            
+            service.AddTransient<IProceedingSessionApplication, ProceedingSessionApplication>();
+            service.AddTransient<IProceedingSessionRepository, ProceedingSessionRepository>();
 
             service.AddDbContext<FileContext>(x => x.UseSqlServer(connectionString));
         }

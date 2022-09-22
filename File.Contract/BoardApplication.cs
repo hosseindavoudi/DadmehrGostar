@@ -34,7 +34,7 @@ namespace File.Contract
             _boardRepository.Create(board);
             _boardRepository.SaveChanges();
 
-            return operation.Succcedded();
+            return operation.Succcedded(board.Id);
         }
 
         public OperationResult Edit(EditBoard command)
@@ -53,12 +53,17 @@ namespace File.Contract
                 command.ExpertReport,command.File_Id,command.BoardType_Id);
             _boardRepository.SaveChanges();
 
-            return operation.Succcedded();
+            return operation.Succcedded(board.Id);
         }
 
         public EditBoard GetDetails(long id)
         {
             return _boardRepository.GetDetails(id);
+        }
+
+        public EditBoard GetDetails(long fileId, int boardTypeId)
+        {
+            return _boardRepository.GetDetails(fileId, boardTypeId);
         }
 
         public List<BoardViewModel> Search(BoardSearchModel searchModel)

@@ -23,6 +23,7 @@ namespace File.EfCore.Repository
         {
             return _context.Files.Select(x => new EditFile
             {
+                Id = x.Id,
                 ArchiveNo = x.ArchiveNo,
                 ClientVisitDate = x.ClientVisitDate.ToFarsi(),
                 ProceederReference = x.ProceederReference,
@@ -39,7 +40,7 @@ namespace File.EfCore.Repository
         {
             var query = _context.Files.Select(x => new FileViewModel
             {
-                Id = x.id,
+                Id = x.Id,
                 ArchiveNo = x.ArchiveNo,
                 ClientVisitDate = x.ClientVisitDate,
                 ProceederReference = x.ProceederReference,

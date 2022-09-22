@@ -12,5 +12,8 @@ namespace Files.Application.ProceedingSession
     {
         OperationResult Create(CreateProceedingSession command);
         OperationResult Edit(EditProceedingSession command);
+        List<EditProceedingSession> Search(long boardId);
+        OperationResult CreateProceedingSessions(List<EditProceedingSession> proceedingSessions, long boardId);
+        void RemoveProceedingSessions(long boardId);
     }
 }

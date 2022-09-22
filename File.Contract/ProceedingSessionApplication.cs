@@ -10,7 +10,7 @@ using Files.Application.ProceedingSession;
 
 namespace File.Contract
 {
-    public class ProceedingSessionApplication:IProceedingSessionApplication
+    public class ProceedingSessionApplication : IProceedingSessionApplication
     {
         private readonly IProceedingSessionRepository _proceedingSessionRepository;
 
@@ -23,19 +23,36 @@ namespace File.Contract
         {
             var operation = new OperationResult();
 
-            //var Date = new DateTime();
-            //Date = command.Date.ToGeorgian();
+            var Date = new DateTime();
+            Date = command.Date.ToGeorgian();
 
-            //var Time = new DateTime();
-            //Time = command.Time.ToGeorgian();
+            var Time = new DateTime();
+            Time = command.Time.ToGeorgian();
 
             //TODO if
-            //if(_BoardRepository.Exists(x=>x.Branch == command.Branch))
-            //    operation.Failed("fail message")
+            //if (_BoardRepository.Exists(x => x.Branch == command.Branch))
+            //        operation.Failed("fail message")
 
-            //var proSession = new ProceedingSession(Date,Time,command.Board_Id);
-            //_proceedingSessionRepository.Create(proSession);
-            //_proceedingSessionRepository.SaveChanges();
+            var proSession = new ProceedingSession(Date, Time, command.Board_Id);
+            _proceedingSessionRepository.Create(proSession);
+            _proceedingSessionRepository.SaveChanges();
+
+            return operation.Succcedded();
+        }
+
+        public OperationResult CreateProceedingSessions(List<EditProceedingSession> proceedingSessions, long boardId)
+        {
+            var operation = new OperationResult();
+
+            RemoveProceedingSessions(boardId);
+
+            foreach (var obj in proceedingSessions)
+            {
+                obj.Board_Id = boardId;
+                obj.Id = 0;
+
+                Create(obj);
+            }
 
             return operation.Succcedded();
         }
@@ -59,6 +76,18 @@ namespace File.Contract
             //_proceedingSessionRepository.SaveChanges();
 
             return operation.Succcedded();
+        }
+
+        public void RemoveProceedingSessions(long boardId)
+        {
+            var objects = Search(boardId);
+
+            _proceedingSessionRepository.RemoveProceedingSessions(objects);
+        }
+
+        public List<EditProceedingSession> Search(long boardId)
+        {
+            return _proceedingSessionRepository.Search(boardId);
         }
     }
 }
