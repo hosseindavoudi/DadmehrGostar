@@ -37,6 +37,7 @@ namespace Files.Application.File
         [Required(ErrorMessage = "فیلد الزامی است")]
         public int HasMandate { get; set; }
 
+
         public string Description { get; set; }
     }
 }

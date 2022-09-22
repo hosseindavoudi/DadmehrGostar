@@ -222,11 +222,13 @@ namespace ServiceHost.Areas.Admin.Pages.File.FilePage
             return Partial("Details", editJob);
         }
 
-        public JsonResult OnGetCheckUniqueArchiveNo(int id)
+        public JsonResult OnPostCheckUniqueArchiveNo(string archiveNo)
         {
-            var sModel = new FileSearchModel { ArchiveNo = (long)id };
+            var sModel = new FileSearchModel { ArchiveNo = long.Parse(archiveNo) };
             var vModel = _fileApplication.Search(sModel);
-            return new JsonResult(new { stat = vModel == null ? true : false, message = vModel == null ? "" : "شماره بایگانی تکراری است" });
+
+            return new JsonResult(new { stat = vModel.Count() == 0 ? true : false, message = vModel == null ? "" : "شماره بایگانی تکراری است" });
         }
+
     }
 }
