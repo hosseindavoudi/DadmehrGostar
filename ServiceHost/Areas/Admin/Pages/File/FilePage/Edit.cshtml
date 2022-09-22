@@ -62,7 +62,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label asp-for="ClientVisitDate" class="control-label">  تاریخ مراجعه موکل </label>
-                                <input type="text" class="form-control" asp-for="ClientVisitDate">
+                                <input type="text" class="form-control" asp-for="ClientVisitDate" readonly>
                                 <span asp-validation-for="ClientVisitDate" class="error"></span>
                             </div>
                         </div>
@@ -119,7 +119,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label asp-for="createDiagnosisBoard.DisputeResolutionPetitionDate" class="control-label"> تاریخ ثبت دادخواست تشخیص </label>
-                                <input type="text" class="form-control" asp-for="createDiagnosisBoard.DisputeResolutionPetitionDate">
+                                <input type="text" class="form-control" asp-for="createDiagnosisBoard.DisputeResolutionPetitionDate" readonly>
                                 <span asp-validation-for="createDiagnosisBoard.DisputeResolutionPetitionDate" class="error"></span>
                             </div>
                         </div>
@@ -144,7 +144,7 @@
                             <div class="col-md-6 proceedingSession">
                                 <div class="form-group">
                                     <label asp-for="createDiagnosisPS[i].Date" class="control-label"> تاریخ نوبت اول رسیدگی </label>
-                                    <input type="text" class="form-control" asp-for="createDiagnosisPS[i].Date">
+                                    <input type="text" class="form-control" asp-for="createDiagnosisPS[i].Date" readonly>
                                     <span asp-validation-for="createDiagnosisPS[i].Date" class="error"></span>
                                 </div>
                             </div>
@@ -199,7 +199,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label asp-for="createDisputeResolutionBoard.DisputeResolutionPetitionDate" class="control-label"> تاریخ ثبت دادخواست حل اختلاف </label>
-                                <input type="text" class="form-control" asp-for="createDisputeResolutionBoard.DisputeResolutionPetitionDate">
+                                <input type="text" class="form-control" asp-for="createDisputeResolutionBoard.DisputeResolutionPetitionDate" readonly>
                                 <span asp-validation-for="createDisputeResolutionBoard.DisputeResolutionPetitionDate" class="error"></span>
                             </div>
                         </div>
@@ -223,7 +223,7 @@
                             <div class="col-md-6 proceedingSession">
                                 <div class="form-group">
                                     <label asp-for="createDisputeResolutionPS[i].Date" class="control-label"> تاریخ نوبت اول رسیدگی </label>
-                                    <input type="text" class="form-control" asp-for="createDisputeResolutionPS[i].Date">
+                                    <input type="text" class="form-control" asp-for="createDisputeResolutionPS[i].Date" readonly>
                                     <span asp-validation-for="createDisputeResolutionPS[i].Date" class="error"></span>
                                 </div>
                             </div>
@@ -375,15 +375,19 @@ var DiagnosisPSCounter = @Model.createDiagnosisPS.Count - 1;
         const html = `<div class="col-md-6 proceedingSession">
                             <div class="form-group">
                                 <label class="control-label" for="createDiagnosisPS_${DiagnosisPSCounter}__Date"> ${label} </label>
-                                <input type="text" class="form-control createDiagnosisPS_Date" data-val="true" data-val-required="فیلد الزامی است" id="createDiagnosisPS_${DiagnosisPSCounter}__Date" name="createDiagnosisPS[${DiagnosisPSCounter}].Date" value="">
-                                <span class="error field-validation-valid" data-valmsg-for="createDiagnosisPS[${DiagnosisPSCounter}].Date" data-valmsg-replace="true"></span>
+                                <input type="text" class="form-control createDiagnosisPS_Date" data-val="true" data-val-required="فیلد الزامی است" 
+                                id="createDiagnosisPS_${DiagnosisPSCounter}__Date" name="createDiagnosisPS[${DiagnosisPSCounter}].Date" value="" readonly>
+                                <span class="error field-validation-valid" data-valmsg-for="createDiagnosisPS[${DiagnosisPSCounter}].Date" 
+                                data-valmsg-replace="true"></span>
                             </div>
                         </div>
                         <div class="col-md-6 proceedingSession">
                             <div class="form-group">
                                 <label class="control-label" for="createDiagnosisPS_${DiagnosisPSCounter}__Time"> ساعت برگزاری جلسه </label>
-                                <input type="text" class="form-control" data-val="true" data-val-required="فیلد الزامی است" id="createDiagnosisPS_${DiagnosisPSCounter}__Time" name="createDiagnosisPS[${DiagnosisPSCounter}].Time" value="">
-                                <span class="error field-validation-valid" data-valmsg-for="createDiagnosisPS[${DiagnosisPSCounter}].Time" data-valmsg-replace="true"></span>
+                                <input type="text" class="form-control" data-val="true" data-val-required="فیلد الزامی است" 
+                                id="createDiagnosisPS_${DiagnosisPSCounter}__Time" name="createDiagnosisPS[${DiagnosisPSCounter}].Time" value="">
+                                <span class="error field-validation-valid" data-valmsg-for="createDiagnosisPS[${DiagnosisPSCounter}].Time" 
+                                data-valmsg-replace="true"></span>
                             </div>
                         </div>`
                         
@@ -421,15 +425,21 @@ var DiagnosisPSCounter = @Model.createDiagnosisPS.Count - 1;
         const html = `<div class="col-md-6 proceedingSession">
                             <div class="form-group">
                                 <label class="control-label" for="createDisputeResolutionPS_${DisputeResolutionPSCounter}__Date"> ${label} </label>
-                                <input type="text" class="form-control" data-val="true" data-val-required="فیلد الزامی است" id="createDisputeResolutionPS_${DisputeResolutionPSCounter}__Date" name="createDisputeResolutionPS[${DisputeResolutionPSCounter}].Date" value="">
-                                <span class="error field-validation-valid" data-valmsg-for="createDisputeResolutionPS[${DisputeResolutionPSCounter}].Date" data-valmsg-replace="true"></span>
+                                <input type="text" class="form-control" data-val="true" data-val-required="فیلد الزامی است" 
+                                id="createDisputeResolutionPS_${DisputeResolutionPSCounter}__Date" 
+                                name="createDisputeResolutionPS[${DisputeResolutionPSCounter}].Date" value="" readonly>
+                                <span class="error field-validation-valid" data-valmsg-for="createDisputeResolutionPS[${DisputeResolutionPSCounter}].Date" 
+                                data-valmsg-replace="true"></span>
                             </div>
                         </div>
                         <div class="col-md-6 proceedingSession">
                             <div class="form-group">
                                 <label class="control-label" for="createDisputeResolutionPS_${DisputeResolutionPSCounter}__Time"> ساعت برگزاری جلسه </label>
-                                <input type="text" class="form-control" data-val="true" data-val-required="فیلد الزامی است" id="createDisputeResolutionPS_${DisputeResolutionPSCounter}__Time" name="createDisputeResolutionPS[${DisputeResolutionPSCounter}].Time" value="">
-                                <span class="error field-validation-valid" data-valmsg-for="createDisputeResolutionPS[${DisputeResolutionPSCounter}].Time" data-valmsg-replace="true"></span>
+                                <input type="text" class="form-control" data-val="true" data-val-required="فیلد الزامی است" 
+                                id="createDisputeResolutionPS_${DisputeResolutionPSCounter}__Time" 
+                                name="createDisputeResolutionPS[${DisputeResolutionPSCounter}].Time" value="">
+                                <span class="error field-validation-valid" data-valmsg-for="createDisputeResolutionPS[${DisputeResolutionPSCounter}].Time" 
+                                data-valmsg-replace="true"></span>
                             </div>
                         </div>`
                         

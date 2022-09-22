@@ -244,6 +244,7 @@ namespace ServiceHost.Areas.Admin.Pages.File.FilePage
 
 
             result = _workHistoryApplication.CreateWorkHistories(command.CreateWorkHistory, result.EntityId);
+        }
 
             if (!result.IsSuccedded) return new JsonResult(result);
 

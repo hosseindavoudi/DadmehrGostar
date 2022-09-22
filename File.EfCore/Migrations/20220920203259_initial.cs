@@ -96,7 +96,11 @@ namespace File.EfCore.Migrations
                         column: x => x.BoardType_Id,
                         principalTable: "BoardTypes",
                         principalColumn: "Id",
+<<<<<<<< HEAD:File.EfCore/Migrations/20220922062723_init.cs
+                        onDelete: ReferentialAction.Cascade);
+========
                         onDelete: ReferentialAction.NoAction);
+>>>>>>>> 18c78f8aa89dcc5c8d92977720fe07a1e2d4b0cb:File.EfCore/Migrations/20220920203259_initial.cs
                     table.ForeignKey(
                         name: "FK_Petitions_Files_File_Id",
                         column: x => x.File_Id,
