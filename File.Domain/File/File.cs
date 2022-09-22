@@ -9,7 +9,7 @@ namespace File.Domain.File
 {
     public class File : EntityBase
     {
-        public File(long archiveNo, DateTime clientVisitDate, string proceederReference, long reqester, long summoned, bool client, string fileClass, bool hasMandate, string description)
+        public File(long archiveNo, DateTime clientVisitDate, string proceederReference, long reqester, long summoned, int client, string fileClass, int hasMandate, string description)
         {
             ArchiveNo = archiveNo;
             ClientVisitDate = clientVisitDate;
@@ -29,9 +29,9 @@ namespace File.Domain.File
         public string ProceederReference { get; private set; }
         public long Reqester { get; private set; }
         public long Summoned { get; private set; }
-        public bool Client { get; private set; }
+        public int Client { get; private set; } // 1-> Requester , 2-> Summoned
         public string FileClass { get; private set; }
-        public bool HasMandate { get; private set; }
+        public int HasMandate { get; private set; } // 1-> has not , 2-> has
         public string Description { get; private set; }
 
         public List<Board.Board> BoardsList { get; set; }
@@ -42,7 +42,7 @@ namespace File.Domain.File
         //    BoardsList = new List<Board.Board>();
         //}
 
-        public void Edit(long archiveNo, DateTime clientVisitDate, string proceederReference, long reqester, long summoned, bool client, string fileClass, bool hasMandate, string description)
+        public void Edit(long archiveNo, DateTime clientVisitDate, string proceederReference, long reqester, long summoned, int client, string fileClass, int hasMandate, string description)
         {
             ArchiveNo = archiveNo;
             ClientVisitDate = clientVisitDate;

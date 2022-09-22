@@ -15,7 +15,7 @@ namespace File.EfCore.Mapping
         public void Configure(EntityTypeBuilder<ProceedingSession> builder)
         {
             builder.ToTable("ProceedingSessions");
-            builder.HasKey(x => x.id);
+            builder.HasKey(x => x.Id);
 
             //TODO
             //add validations

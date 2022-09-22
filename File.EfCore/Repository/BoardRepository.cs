@@ -23,6 +23,7 @@ namespace File.EfCore.Repository
         {
             return _context.Boards.Select(x => new EditBoard
             {
+                Id = x.Id,
                 BoardChairman = x.BoardChairman,
                 Branch = x.Branch,
                 ExpertReport = x.ExpertReport,
@@ -32,11 +33,25 @@ namespace File.EfCore.Repository
             }).FirstOrDefault(x => x.Id == id);
         }
 
+        public EditBoard GetDetails(long fileId, int boardTypeId)
+        {
+            return _context.Boards.Select(x => new EditBoard
+            {
+                Id = x.Id,
+                BoardChairman = x.BoardChairman,
+                Branch = x.Branch,
+                ExpertReport = x.ExpertReport,
+                DisputeResolutionPetitionDate = x.DisputeResolutionPetitionDate.ToFarsi(),
+                File_Id = x.File_Id,
+                BoardType_Id = x.BoardType_Id,
+            }).FirstOrDefault(x => x.File_Id == fileId && x.BoardType_Id == boardTypeId);
+        }
+
         public List<BoardViewModel> Search(BoardSearchModel searchModel)
         {
             var query = _context.Boards.Select(x => new BoardViewModel
             {
-                Id = x.id,
+                Id = x.Id,
                 BoardChairman = x.BoardChairman,
                 Branch = x.Branch,
                 ExpertReport = x.ExpertReport,

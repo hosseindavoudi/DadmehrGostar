@@ -14,13 +14,13 @@ namespace File.EfCore.Mapping
         public void Configure(EntityTypeBuilder<Petition> builder)
         {
             builder.ToTable("Petitions");
-            builder.HasKey(x => x.id);
+            builder.HasKey(x => x.Id);
 
             //TODO
             //add validations
 
             builder.HasOne(x => x.File).WithMany(x => x.PetitionsList).HasForeignKey(x => x.File_Id);
-            builder.HasOne(x => x.Board).WithMany(x => x.PetitionsList).HasForeignKey(x => x.Board_Id);
+            builder.HasOne(x => x.BoardType).WithMany(x => x.PetitionsList).HasForeignKey(x => x.BoardType_Id);
             builder.HasMany(x => x.WorkHistoriesList).WithOne(x => x.Petition).HasForeignKey(x => x.Petition_Id);
             builder.HasMany(x => x.PenaltyTitlesList).WithOne(x => x.Petition).HasForeignKey(x => x.Petition_Id);
         }

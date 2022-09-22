@@ -117,7 +117,8 @@
                         <div class="col-md-3 recordVerification">
                             <div class="form-group">
                                 <label asp-for="CreateWorkHistory[0].FromDate" class="control-label"> از تاریخ </label>
-                                <input type="text" class="form-control" asp-for="CreateWorkHistory[0].FromDate">
+                                <input type="text" class="form-control" asp-for="CreateWorkHistory[0].FromDate" 
+                                       onfocusout="insertMinDate('CreateWorkHistory_0__FromDate','CreateWorkHistory_0__ToDate')">
                                 <span asp-validation-for="CreateWorkHistory[0].FromDate" class="error"></span>
                             </div>
                         </div>
@@ -230,6 +231,91 @@
         language: "fa",
         dir: "rtl"
     });
+    
+    $('#PetitionIssuanceDate').persianDatepicker({
+        format: 'YYYY/MM/DD',
+        initialValueType: 'persian',
+        initialValue: false,
+        'position': [-270, 25],
+        autoClose: true,
+
+        calendar: {
+            persian: {
+                leapYearMode: 'astronomical'
+            }
+        }
+    });
+    
+    $('#NotificationPetitionDate').persianDatepicker({
+        format: 'YYYY/MM/DD',
+        initialValueType: 'persian',
+        initialValue: false,
+        'position': [-270, 25],
+        autoClose: true,
+
+        calendar: {
+            persian: {
+                leapYearMode: 'astronomical'
+            }
+        }
+    });
+    
+    $('#CreateWorkHistory_0__FromDate').persianDatepicker({
+        format: 'YYYY/MM/DD',
+        initialValueType: 'persian',
+        initialValue: false,
+        'position': [-270, 25],
+        autoClose: true,
+
+        calendar: {
+            persian: {
+                leapYearMode: 'astronomical'
+            }
+        }
+    });
+    
+    $('#CreateWorkHistory_0__ToDate').persianDatepicker({
+        format: 'YYYY/MM/DD',
+        initialValueType: 'persian',
+        initialValue: false,
+        'position': [-270, 25],
+        autoClose: true,
+
+        calendar: {
+            persian: {
+                leapYearMode: 'astronomical'
+            }
+        }
+    });
+    
+    $('#CreatePenaltyTitle_0__FromDate').persianDatepicker({
+        format: 'YYYY/MM/DD',
+        initialValueType: 'persian',
+        initialValue: false,
+        'position': [-270, 25],
+        autoClose: true,
+
+        calendar: {
+            persian: {
+                leapYearMode: 'astronomical'
+            }
+        }
+    });
+    
+    $('#CreatePenaltyTitle_0__ToDate').persianDatepicker({
+        format: 'YYYY/MM/DD',
+        initialValueType: 'persian',
+        initialValue: false,
+        'position': [-270, 25],
+        autoClose: true,
+
+        calendar: {
+            persian: {
+                leapYearMode: 'astronomical'
+            }
+        }
+    });
+
 </script>
 <script>
     
@@ -289,6 +375,34 @@
                         </div>`
 
         $(html).insertBefore("."+ flag)
+        
+        $(`#CreateWorkHistory_${workhistoryCounter}__FromDate`).persianDatepicker({
+            format: 'YYYY/MM/DD',
+            initialValueType: 'persian',
+            initialValue: false,
+            'position': [-270, 25],
+            autoClose: true,
+
+            calendar: {
+                persian: {
+                    leapYearMode: 'astronomical'
+                }
+            }
+        });
+        
+        $(`#CreateWorkHistory_${workhistoryCounter}__ToDate`).persianDatepicker({
+            format: 'YYYY/MM/DD',
+            initialValueType: 'persian',
+            initialValue: false,
+            'position': [-270, 25],
+            autoClose: true,
+
+            calendar: {
+                persian: {
+                    leapYearMode: 'astronomical'
+                }
+            }
+        });
     }
     
     function addNewFormPenaltyTitles(flag) {
@@ -339,7 +453,44 @@
                         </div>`;
                     
         $(html).insertBefore("."+ flag)
+        
+        $(`#CreatePenaltyTitle_${penaltyTitleCounter}__FromDate`).persianDatepicker({
+            format: 'YYYY/MM/DD',
+            initialValueType: 'persian',
+            initialValue: false,
+            'position': [-270, 25],
+            autoClose: true,
 
+            calendar: {
+                persian: {
+                    leapYearMode: 'astronomical'
+                }
+            }
+        });
+        
+        $(`#CreatePenaltyTitle_${penaltyTitleCounter}__ToDate`).persianDatepicker({
+            format: 'YYYY/MM/DD',
+            initialValueType: 'persian',
+            initialValue: false,
+            'position': [-270, 25],
+            autoClose: true,
+
+            calendar: {
+                persian: {
+                    leapYearMode: 'astronomical'
+                }
+            }
+        });
+
+    }
+    
+    function insertMinDate(dateFrom, dateTo){
+        console.log(dateFrom, dateTo)
+        
+        $(`#${dateTo}`).persianDatepicker({
+            minDate: $(`#${dateFrom}`).value,
+            //minDate: "۱۴۰۱/۰۶/۲۸",
+        });
     }
 </Script>                               
 

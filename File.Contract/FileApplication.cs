@@ -26,8 +26,8 @@ namespace File.Contract
             clientVisitDate = command.ClientVisitDate.ToGeorgian();
 
             //TODO if
-            //if(_BoardRepository.Exists(x=>x.Branch == command.Branch))
-            //    operation.Failed("fail message")
+            if(_fileRepository.Exists(x=>x.ArchiveNo == command.ArchiveNo))
+                return operation.Failed("شماره بایگانی تکراری است");
 
             var file = new Domain.File.File(command.ArchiveNo, clientVisitDate, command.ProceederReference,
                 command.Reqester, command.Summoned, command.Client, command.FileClass, command.HasMandate,
@@ -44,7 +44,16 @@ namespace File.Contract
             var file = _fileRepository.Get(command.Id);
             var clientVisitDate = new DateTime();
 
-            clientVisitDate = command.ClientVisitDate.ToGeorgian();
+            if (command.ClientVisitDate != null)
+            {
+                
+                clientVisitDate = command.ClientVisitDate.ToGeorgian();
+            }
+            else
+            {
+                clientVisitDate = file.ClientVisitDate;
+            }
+
 
             //TODO
             //if(_BoardRepository.Exists(x=>x.Branch == command.Branch))
@@ -66,6 +75,13 @@ namespace File.Contract
         public List<FileViewModel> Search(FileSearchModel searchModel)
         {
             return _fileRepository.Search(searchModel);
+        }
+
+        public FileViewModel GetLastArchiveNumber(FileSearchModel searchModel)
+        {
+            var model = Search(searchModel);
+
+           return model == null ? model.OrderByDescending(x => x.ArchiveNo).FirstOrDefault() : new FileViewModel();
         }
     }
 }

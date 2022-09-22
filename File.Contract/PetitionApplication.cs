@@ -6,12 +6,15 @@ using System.Threading.Tasks;
 using _0_Framework.Application;
 using Files.Application.Petition;
 using File.Domain.Petition;
+using File.Domain.WorkHistory;
+using Files.Application.WorkHistory;
 
 namespace File.Contract
 {
     public class PetitionApplication : IPetitionApplication
     {
         private readonly IPetitionRepository _petitionRepository;
+        private readonly IWorkHistoryRepository _workHistoryRepository;
 
         public PetitionApplication(IPetitionRepository petitionRepository)
         {
@@ -32,11 +35,13 @@ namespace File.Contract
             //    operation.Failed("fail message")
 
             var petition = new Petition(petitionIssuanceDate, notificationPetitionDate,
-                command.TotalPenalty, command.TotalPenaltyTitles, command.Description, command.Board_Id, command.File_Id);
+                command.TotalPenalty, command.TotalPenaltyTitles, command.Description, command.BoardType_Id, command.File_Id);
             _petitionRepository.Create(petition);
             _petitionRepository.SaveChanges();
 
-            return operation.Succcedded();
+            
+
+            return operation.Succcedded(petition.Id);
         }
 
         public OperationResult Edit(EditPetition command)
@@ -54,16 +59,20 @@ namespace File.Contract
             //    operation.Failed("fail message")
 
             petition.Edit(petitionIssuanceDate, notificationPetitionDate,
-                command.TotalPenalty, command.TotalPenaltyTitles, command.Description, command.Board_Id, command.File_Id);
-            _petitionRepository.Create(petition);
+                command.TotalPenalty, command.TotalPenaltyTitles, command.Description, command.BoardType_Id, command.File_Id);
             _petitionRepository.SaveChanges();
 
-            return operation.Succcedded();
+            return operation.Succcedded(petition.Id);
         }
 
         public EditPetition GetDetails(long id)
         {
             return _petitionRepository.GetDetails(id);
+        }
+        
+        public EditPetition GetDetails(long fileId, int boardTypeId)
+        {
+            return _petitionRepository.GetDetails(fileId, boardTypeId);
         }
 
         public List<PetitionViewModel> Search(PetitionSearchModel searchModel)

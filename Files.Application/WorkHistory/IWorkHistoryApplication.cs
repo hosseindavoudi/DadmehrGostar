@@ -12,5 +12,8 @@ namespace Files.Application.WorkHistory
     {
         OperationResult Create(CreateWorkHistory command);
         OperationResult Edit(EditWorkHistory command);
+        List<EditWorkHistory> Search(long petitionId);
+        OperationResult CreateWorkHistories(List<EditWorkHistory> workHistories, long petitionId);
+        void RemoveWorkHistories(long petitionId);
     }
 }

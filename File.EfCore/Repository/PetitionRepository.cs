@@ -24,25 +24,43 @@ namespace File.EfCore.Repository
         {
             return _context.Petitions.Select(x => new EditPetition
             {
+                Id = x.Id,
                 PetitionIssuanceDate = x.PetitionIssuanceDate.ToFarsi(),
                 NotificationPetitionDate = x.NotificationPetitionDate.ToFarsi(),
                 TotalPenalty = x.TotalPenalty,
                 TotalPenaltyTitles = x.TotalPenaltyTitles,
                 Description = x.Description,
+                File_Id = x.File_Id,
+                BoardType_Id = x.BoardType_Id
             }).FirstOrDefault(x => x.Id == id);
+        }
+
+        public EditPetition GetDetails(long fileId, int boardTypeId)
+        {
+            return _context.Petitions.Select(x => new EditPetition
+            {
+                Id = x.Id,
+                PetitionIssuanceDate = x.PetitionIssuanceDate.ToFarsi(),
+                NotificationPetitionDate = x.NotificationPetitionDate.ToFarsi(),
+                TotalPenalty = x.TotalPenalty,
+                TotalPenaltyTitles = x.TotalPenaltyTitles,
+                Description = x.Description,
+                File_Id = x.File_Id,
+                BoardType_Id = x.BoardType_Id
+            }).FirstOrDefault(x => x.File_Id == fileId && x.BoardType_Id == boardTypeId);
         }
 
         public List<PetitionViewModel> Search(PetitionSearchModel searchModel)
         {
             var query = _context.Petitions.Select(x => new PetitionViewModel
             {
-                Id = x.id,
+                Id = x.Id,
                 PetitionIssuanceDate = x.PetitionIssuanceDate,
                 NotificationPetitionDate = x.NotificationPetitionDate,
                 TotalPenalty = x.TotalPenalty,
                 TotalPenaltyTitles = x.TotalPenaltyTitles,
                 Description = x.Description,
-                Board_Id = x.Board_Id,
+                BoardType_Id = x.BoardType_Id,
                 File_Id = x.File_Id,
             });
 

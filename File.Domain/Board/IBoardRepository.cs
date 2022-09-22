@@ -11,6 +11,7 @@ namespace File.Domain.Board
     public interface IBoardRepository : IRepository<long, Board>
     {
         EditBoard GetDetails(long id);
+        EditBoard GetDetails(long fileId, int boardTypeId);
         List<BoardViewModel> Search(BoardSearchModel searchModel);
     }
 }

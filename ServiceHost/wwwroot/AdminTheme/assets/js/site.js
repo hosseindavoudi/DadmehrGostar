@@ -292,7 +292,6 @@ function CallBackHandler(data, action, form) {
             } else {
                 $.Notification.autoHideNotify('error', 'top center', 'پیام سیستم ', itemss[6].vall);
             }
-          
         
         default:
     }

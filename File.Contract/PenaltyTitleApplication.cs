@@ -41,6 +41,23 @@ namespace File.Contract
             return operation.Succcedded();
         }
 
+        public OperationResult CreatePenaltyTitles(List<EditPenaltyTitle> penaltyTitles, long petitionId)
+        {
+            var operation = new OperationResult();
+
+            RemovePenaltyTitles(petitionId);
+
+            foreach (var obj in penaltyTitles)
+            {
+                obj.Petition_Id = petitionId;
+                obj.Id = 0;
+
+                Create(obj);
+            }
+
+            return operation.Succcedded();
+        }
+
         public OperationResult Edit(EditPenaltyTitle command)
         {
             var operation = new OperationResult();
@@ -60,6 +77,18 @@ namespace File.Contract
             _penaltyTitleRepository.SaveChanges();
 
             return operation.Succcedded();
+        }
+
+        public void RemovePenaltyTitles(long petitionId)
+        {
+            var objects = Search(petitionId);
+
+            _penaltyTitleRepository.RemovePenaltyTitles(objects);
+        }
+
+        public List<EditPenaltyTitle> Search(long petitionId)
+        {
+            return _penaltyTitleRepository.Search(petitionId);
         }
     }
 }

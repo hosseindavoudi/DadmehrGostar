@@ -10,9 +10,9 @@ namespace Files.Application.File
         public string ProceederReference { get; set; }
         public long Reqester { get; set; }
         public long Summoned { get; set; }
-        public bool Client { get; set; }
+        public int Client { get; set; }
         public string FileClass { get; set; }
-        public bool HasMandate { get; set; }
+        public int HasMandate { get; set; }
         public string Description { get; set; }
     }
 }

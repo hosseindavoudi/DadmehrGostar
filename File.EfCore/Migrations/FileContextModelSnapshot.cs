@@ -21,7 +21,7 @@ namespace File.EfCore.Migrations
 
             modelBuilder.Entity("File.Domain.Board.Board", b =>
                 {
-                    b.Property<long>("id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -29,8 +29,8 @@ namespace File.EfCore.Migrations
                     b.Property<string>("BoardChairman")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("BoardType_Id")
-                        .HasColumnType("bigint");
+                    b.Property<int>("BoardType_Id")
+                        .HasColumnType("int");
 
                     b.Property<string>("Branch")
                         .HasColumnType("nvarchar(max)");
@@ -47,7 +47,7 @@ namespace File.EfCore.Migrations
                     b.Property<long>("File_Id")
                         .HasColumnType("bigint");
 
-                    b.HasKey("id");
+                    b.HasKey("Id");
 
                     b.HasIndex("BoardType_Id");
 
@@ -58,25 +58,22 @@ namespace File.EfCore.Migrations
 
             modelBuilder.Entity("File.Domain.BoardType.BoardType", b =>
                 {
-                    b.Property<long>("id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CreationDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("id");
+                    b.HasKey("Id");
 
                     b.ToTable("BoardTypes");
                 });
 
             modelBuilder.Entity("File.Domain.File.File", b =>
                 {
-                    b.Property<long>("id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -84,8 +81,8 @@ namespace File.EfCore.Migrations
                     b.Property<long>("ArchiveNo")
                         .HasColumnType("bigint");
 
-                    b.Property<bool>("Client")
-                        .HasColumnType("bit");
+                    b.Property<int>("Client")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("ClientVisitDate")
                         .HasColumnType("datetime2");
@@ -99,8 +96,8 @@ namespace File.EfCore.Migrations
                     b.Property<string>("FileClass")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("HasMandate")
-                        .HasColumnType("bit");
+                    b.Property<int>("HasMandate")
+                        .HasColumnType("int");
 
                     b.Property<string>("ProceederReference")
                         .HasColumnType("nvarchar(max)");
@@ -111,14 +108,14 @@ namespace File.EfCore.Migrations
                     b.Property<long>("Summoned")
                         .HasColumnType("bigint");
 
-                    b.HasKey("id");
+                    b.HasKey("Id");
 
                     b.ToTable("Files");
                 });
 
             modelBuilder.Entity("File.Domain.PenaltyTitle.PenaltyTitle", b =>
                 {
-                    b.Property<long>("id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -129,14 +126,17 @@ namespace File.EfCore.Migrations
                     b.Property<string>("Day")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("FromDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("PaidAmount")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<long>("Petition_Id")
                         .HasColumnType("bigint");
+
+                    b.Property<string>("RemainingAmount")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
@@ -144,7 +144,7 @@ namespace File.EfCore.Migrations
                     b.Property<DateTime>("ToDate")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("id");
+                    b.HasKey("Id");
 
                     b.HasIndex("Petition_Id");
 
@@ -153,13 +153,13 @@ namespace File.EfCore.Migrations
 
             modelBuilder.Entity("File.Domain.Petition.Petition", b =>
                 {
-                    b.Property<long>("id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long>("Board_Id")
-                        .HasColumnType("bigint");
+                    b.Property<int>("BoardType_Id")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
@@ -182,9 +182,9 @@ namespace File.EfCore.Migrations
                     b.Property<string>("TotalPenaltyTitles")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("id");
+                    b.HasKey("Id");
 
-                    b.HasIndex("Board_Id");
+                    b.HasIndex("BoardType_Id");
 
                     b.HasIndex("File_Id");
 
@@ -193,7 +193,7 @@ namespace File.EfCore.Migrations
 
             modelBuilder.Entity("File.Domain.ProceedingSession.ProceedingSession", b =>
                 {
-                    b.Property<long>("id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -210,7 +210,7 @@ namespace File.EfCore.Migrations
                     b.Property<DateTime>("Time")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("id");
+                    b.HasKey("Id");
 
                     b.HasIndex("Board_Id");
 
@@ -219,7 +219,7 @@ namespace File.EfCore.Migrations
 
             modelBuilder.Entity("File.Domain.WorkHistory.WorkHistory", b =>
                 {
-                    b.Property<long>("id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -245,7 +245,7 @@ namespace File.EfCore.Migrations
                     b.Property<int>("WorkingHoursPerWeek")
                         .HasColumnType("int");
 
-                    b.HasKey("id");
+                    b.HasKey("Id");
 
                     b.HasIndex("Petition_Id");
 
@@ -284,9 +284,9 @@ namespace File.EfCore.Migrations
 
             modelBuilder.Entity("File.Domain.Petition.Petition", b =>
                 {
-                    b.HasOne("File.Domain.Board.Board", "Board")
+                    b.HasOne("File.Domain.BoardType.BoardType", "BoardType")
                         .WithMany("PetitionsList")
-                        .HasForeignKey("Board_Id")
+                        .HasForeignKey("BoardType_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -296,7 +296,7 @@ namespace File.EfCore.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Board");
+                    b.Navigation("BoardType");
 
                     b.Navigation("File");
                 });
@@ -325,14 +325,14 @@ namespace File.EfCore.Migrations
 
             modelBuilder.Entity("File.Domain.Board.Board", b =>
                 {
-                    b.Navigation("PetitionsList");
-
                     b.Navigation("ProceedingSessionsList");
                 });
 
             modelBuilder.Entity("File.Domain.BoardType.BoardType", b =>
                 {
                     b.Navigation("BoardsList");
+
+                    b.Navigation("PetitionsList");
                 });
 
             modelBuilder.Entity("File.Domain.File.File", b =>

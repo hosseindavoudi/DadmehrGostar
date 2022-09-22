@@ -15,7 +15,7 @@ namespace File.EfCore.Mapping
         public void Configure(EntityTypeBuilder<WorkHistory> builder)
         {
             builder.ToTable("WorkHistories");
-            builder.HasKey(x => x.id);
+            builder.HasKey(x => x.Id);
 
             //TODO
             //add validations

@@ -12,7 +12,8 @@ namespace _0_Framework.Domain
         T Get(TKey id);
         List<T> Get();  
         void Create(T entity);
-
+        void Remove(T entity);
+        void RemoveRange(IEnumerable<T> entities);
         bool Exists(Expression<Func<T, bool>> expression);
         void SaveChanges();
     }
