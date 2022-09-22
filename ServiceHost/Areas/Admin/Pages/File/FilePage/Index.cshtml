@@ -58,8 +58,6 @@
     <div class="col-sm-12">
         <div class="panel-group panel-group-joined" id="accordion-test">
 
-
-
             <div class="panel panel-default" style="border-radius: 15px !important;">
                 <div class="panel-heading" style="background-color: #545353 !important">
                     <h4 class="panel-title" style="color: #edebeb !important; display: inline;">
@@ -73,9 +71,6 @@
                     <div class="panel-body" style="padding-top: 15px; padding-bottom: 15px;">
                         @*===================================================================================================================*@
 
-
-
-
                         <div class="row">
 
                             <div class="col-sm-12">
@@ -84,21 +79,21 @@
                                     <div class="form-group col-sm-12">
                                         <div class="row">
                                             @*<div class="col-sm-4 pull-right">
-                                            <label class="sr-only" asp-for="searchModel.ArchiveNo"></label>
-                                            <input class="form-control inpt" asp-for="searchModel.ArchiveNo" placeholder="شماره بایگانی" style="width: 100%">
+                                            <label class="sr-only" asp-for="fileSearchModel.ArchiveNo"></label>
+                                            <input class="form-control inpt" asp-for="fileSearchModel.ArchiveNo" placeholder="شماره بایگانی" style="width: 100%">
                                             </div>*@
                                             <div class="col-sm-2 pull-right">
-                                                <label class="control-label" asp-for="searchModel.ArchiveNo">شماره بایگانی</label>
-                                                <input class="form-control inpt" asp-for="searchModel.ArchiveNo"  placeholder="شماره بایگانی" style="width: 100%">
+                                                <label class="control-label" asp-for="fileSearchModel.ArchiveNo">شماره بایگانی</label>
+                                                <input class="form-control inpt" asp-for="fileSearchModel.ArchiveNo"  placeholder="شماره بایگانی" style="width: 100%">
                                             </div>
                                             <div class="col-sm-2 pull-right">
-                                                <label class="control-label" asp-for="searchModel.FileClass">کلاسه پرونده</label>
-                                                <input class="form-control inpt" asp-for="searchModel.FileClass" placeholder="کلاسه پرونده" style="width: 100%">
+                                                <label class="control-label" asp-for="fileSearchModel.FileClass">کلاسه پرونده</label>
+                                                <input class="form-control inpt" asp-for="fileSearchModel.FileClass" placeholder="کلاسه پرونده" style="width: 100%">
                                             </div>
                                             <div class="col-sm-2 pull-right">
                                                 @*<div class="form-group">*@
-                                                <label class="control-label" asp-for="searchModel.HasMandate">درج وکالت نامه</label>
-                                                <select class="form-control" asp-for="searchModel.HasMandate" style="width: 100%">
+                                                <label class="control-label" asp-for="fileSearchModel.HasMandate">درج وکالت نامه</label>
+                                                <select class="form-control" asp-for="fileSearchModel.HasMandate" style="width: 100%">
                                                     <option value="-1">همه</option>
                                                     <option value="0">ندارد</option>
                                                     <option value="1">دارد</option>
@@ -107,8 +102,8 @@
                                             </div>
                                             <div class="col-sm-2 pull-right">
                                                 @*<div class="form-group">*@
-                                                <label class="control-label" asp-for="searchModel.Client">موکل</label>
-                                                <select class="form-control" asp-for="searchModel.Client" style="width: 100%">
+                                                <label class="control-label" asp-for="fileSearchModel.Client">موکل</label>
+                                                <select class="form-control" asp-for="fileSearchModel.Client" style="width: 100%">
                                                     <option value="-1">همه</option>
                                                     <option value="0">خواهان</option>
                                                     <option value="1">خوانده</option>
@@ -116,36 +111,36 @@
                                                 @*</div>*@
                                             </div>
                                             <div class="col-sm-2 pull-right">
-                                                <label class="control-label" asp-for="searchModel.ClientVisitDate">تاریخ مراجعه موکل</label>
-                                                <input class="form-control inpt" asp-for="searchModel.ClientVisitDate" placeholder="تاریخ مراجعه موکل" style="width: 100%">
+                                                <label class="control-label" asp-for="fileSearchModel.ClientVisitDate">تاریخ مراجعه موکل</label>
+                                                <input class="form-control inpt" asp-for="fileSearchModel.ClientVisitDate" placeholder="تاریخ مراجعه موکل" style="width: 100%">
                                             </div>
                                             <div class="col-sm-2 pull-right">
-                                                <label class="control-label" asp-for="searchModel.ProceederReference"> مرجع رسیدگی کننده </label>
-                                                <input class="form-control inpt" asp-for="searchModel.ProceederReference" placeholder="مرجع رسیدگی کننده" style="width: 100%">
+                                                <label class="control-label" asp-for="fileSearchModel.ProceederReference"> مرجع رسیدگی کننده </label>
+                                                <input class="form-control inpt" asp-for="fileSearchModel.ProceederReference" placeholder="مرجع رسیدگی کننده" style="width: 100%">
                                             </div>
                                             @* <div class="col-sm-2 pull-right">
-                                            <label class="control-label" asp-for="searchModel.ProceederReference"> مرجع رسیدگی کننده </label>
-                                            <input class="form-control inpt" asp-for="searchModel.ProceederReference" placeholder="مرجع رسیدگی کننده" style="width: 100%">
+                                            <label class="control-label" asp-for="fileSearchModel.ProceederReference"> مرجع رسیدگی کننده </label>
+                                            <input class="form-control inpt" asp-for="fileSearchModel.ProceederReference" placeholder="مرجع رسیدگی کننده" style="width: 100%">
                                             </div>*@
                                             <div class="col-sm-2 pull-right">
                                                 @*<div class="form-group">*@
-                                                <label class="control-label" asp-for="searchModel.Reqester"> خواهان </label>
-                                                <select class="form-control" asp-for="searchModel.Reqester" style="width: 100%">
+                                                <label class="control-label" asp-for="fileSearchModel.Reqester"> خواهان </label>
+                                                <select class="form-control" asp-for="fileSearchModel.Reqester" style="width: 100%">
                                                     <option value="-1">همه</option>
                                                 </select>
                                                 @*</div>*@
                                             </div>
                                             <div class="col-sm-2 pull-right">
                                                 @*<div class="form-group">*@
-                                                <label class="control-label" asp-for="searchModel.Summoned"> خوانده </label>
-                                                <select class="form-control" asp-for="searchModel.Summoned" style="width: 100%">
+                                                <label class="control-label" asp-for="fileSearchModel.Summoned"> خوانده </label>
+                                                <select class="form-control" asp-for="fileSearchModel.Summoned" style="width: 100%">
                                                     <option value="-1">همه</option>
                                                 </select>
                                                 @*</div>*@
                                             </div>
                                             <div class="col-sm-2 pull-right">
-                                                <label class="control-label" asp-for="searchModel.Reqester"> خواهان </label>
-                                                <input class="form-control inpt" asp-for="searchModel.Reqester" placeholder="خواهان" style="width: 100%">
+                                                <label class="control-label" asp-for="fileSearchModel.Reqester"> خواهان </label>
+                                                <input class="form-control inpt" asp-for="fileSearchModel.Reqester" placeholder="خواهان" style="width: 100%">
                                             </div>
                                         </div>
 
@@ -233,18 +228,26 @@
                                         <td style="font-size: 14px !important; text-align: center"> @item.ClientVisitDate </td>
                                         @*<td style="font-size: 14px !important; text-align: center"> @item.DiagnosisSessions[0] </td>*@
                                         <td>
-                                            <p style="font-size: 14px !important; text-align: center;"> DiagnosisSessions Date </p>
-                                            <p style="font-size: 14px !important; text-align: center;"> nobat avval </p>
-                                            <p style="font-size: 14px !important; text-align: center"> address </p>
+                                            @if(item.DiagnosisBoard.Id != 0) { 
+
+                                                <p style="font-size: 14px !important; text-align: center;"> @item.FirstDiagnosisPS.Date</p>
+                                                <p style="font-size: 14px !important; text-align: center;">  نوبت اول </p>
+                                                <p style="font-size: 14px !important; text-align: center"> @item.DiagnosisBoard.Branch - @item.DiagnosisBoard.BoardChairman </p>
+
+                                            }
                                         </td>
 
                                         <td style="font-size: 14px !important; text-align: center"> </td>
                                         <td style="font-size: 14px !important; text-align: center">  </td>
                                         @*<td style="font-size: 14px !important; text-align: center"> @item.DiagnosisSessions[1] </td>*@
                                         <td>
-                                            <p style="font-size: 14px !important; text-align: center;"> DiagnosisSessions Date </p>
-                                            <p style="font-size: 14px !important; text-align: center;"> nobat akhar </p>
-                                            <p style="font-size: 14px !important; text-align: center"> address </p>
+                                            @if(item.DiagnosisBoard.Id != 0) { 
+
+                                                <p style="font-size: 14px !important; text-align: center;"> @item.LastDiagnosisPS.Date</p>
+                                                <p style="font-size: 14px !important; text-align: center;">  نوبت اول </p>
+                                                <p style="font-size: 14px !important; text-align: center"> @item.DiagnosisBoard.Branch - @item.DiagnosisBoard.BoardChairman </p>
+
+                                            }
                                         </td>
                                         <td>
                                             <p style="font-size: 14px !important; text-align: center;"> dadname tashkhis Date </p>
@@ -254,16 +257,25 @@
                                         <td style="font-size: 14px !important; text-align: center"> @item.ClientVisitDate </td>
                                         @*<td style="font-size: 14px !important; text-align: center"> @item.DisputeResolutionSessions[0] </td>*@
                                         <td>
-                                            <p style="font-size: 14px !important; text-align: center;"> DisputeResolution Date </p>
-                                            <p style="font-size: 14px !important; text-align: center;"> nobat avval </p>
-                                            <p style="font-size: 14px !important; text-align: center"> address </p>
-                                        </td>                                        <td style="font-size: 14px !important; text-align: center"> </td>
+                                           @if(item.DisputeResolutionBoard.Id != 0) { 
+
+                                                <p style="font-size: 14px !important; text-align: center;"> @item.FirstDisputeResolutionPS.Date</p>
+                                                <p style="font-size: 14px !important; text-align: center;">  نوبت اول </p>
+                                                <p style="font-size: 14px !important; text-align: center"> @item.DisputeResolutionBoard.Branch - @item.DisputeResolutionBoard.BoardChairman </p>
+
+                                            }
+                                        </td>                                        
+                                        <td style="font-size: 14px !important; text-align: center"> </td>
                                         <td style="font-size: 14px !important; text-align: center">  </td>
                                         @*<td style="font-size: 14px !important; text-align: center"> @item.DisputeResolutionSessions[1] </td>*@
                                         <td>
-                                            <p style="font-size: 14px !important; text-align: center;"> DisputeResolution Date </p>
-                                            <p style="font-size: 14px !important; text-align: center;"> nobat akhar </p>
-                                            <p style="font-size: 14px !important; text-align: center"> address </p>
+                                            @if(item.DisputeResolutionBoard.Id != 0) { 
+
+                                                <p style="font-size: 14px !important; text-align: center;"> @item.LastDisputeResolutionPS.Date</p>
+                                                <p style="font-size: 14px !important; text-align: center;">  نوبت اول </p>
+                                                <p style="font-size: 14px !important; text-align: center"> @item.DisputeResolutionBoard.Branch - @item.DisputeResolutionBoard.BoardChairman </p>
+
+                                            }
                                         </td>
                                         <td>
                                             <p style="font-size: 14px !important; text-align: center;"> dadname hal ekhtelaf Date </p>

@@ -35,7 +35,7 @@ namespace File.EfCore.Repository
                 Id = x.Id,
                 Date = x.Date.ToFarsi(),
                 Time = x.Time.ToFarsi(),
-                Board_Id = boardId
+                Board_Id = x.Board_Id
             }).Where(x => x.Board_Id == boardId);
 
             //TODO if
