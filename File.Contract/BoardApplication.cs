@@ -24,7 +24,7 @@ namespace File.Contract
 
             var disputeResolutionPetitionDate = new DateTime();
 
-            disputeResolutionPetitionDate = command.DisputeResolutionPetitionDate.ToGeorgian();
+            disputeResolutionPetitionDate = command.DisputeResolutionPetitionDate.ToGeorgianDateTime();
             //TODO if
             //if(_BoardRepository.Exists(x=>x.Branch == command.Branch))
             //    operation.Failed("fail message")
@@ -43,7 +43,7 @@ namespace File.Contract
             var board = _boardRepository.Get(command.Id);
 
             var disputeResolutionPetitionDate = new DateTime();
-            disputeResolutionPetitionDate = command.DisputeResolutionPetitionDate.ToGeorgian();
+            disputeResolutionPetitionDate = command.DisputeResolutionPetitionDate.ToGeorgianDateTime();
 
             //TODO
             //if(_BoardRepository.Exists(x=>x.Branch == command.Branch))

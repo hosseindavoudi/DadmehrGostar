@@ -23,7 +23,7 @@ namespace File.Contract
             var operation = new OperationResult();
             var clientVisitDate = new DateTime();
 
-            clientVisitDate = command.ClientVisitDate.ToGeorgian();
+            clientVisitDate = command.ClientVisitDate.ToGeorgianDateTime();
 
             //TODO if
             if(_fileRepository.Exists(x=>x.ArchiveNo == command.ArchiveNo))
@@ -47,7 +47,7 @@ namespace File.Contract
             if (command.ClientVisitDate != null)
             {
                 
-                clientVisitDate = command.ClientVisitDate.ToGeorgian();
+                clientVisitDate = command.ClientVisitDate.ToGeorgianDateTime();
             }
             else
             {

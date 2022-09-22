@@ -25,10 +25,10 @@ namespace File.Contract
             var operation = new OperationResult();
 
             var FromDate = new DateTime();
-            FromDate = command.FromDate.ToGeorgian();
+            FromDate = command.FromDate.ToGeorgianDateTime();
 
             var ToDate = new DateTime();
-            ToDate = command.ToDate.ToGeorgian();
+            ToDate = command.ToDate.ToGeorgianDateTime();
 
             //TODO if
             //if(_BoardRepository.Exists(x=>x.Branch == command.Branch))
@@ -64,10 +64,10 @@ namespace File.Contract
             var penaltyTitle = _penaltyTitleRepository.Get(command.Id);
 
             var FromDate = new DateTime();
-            FromDate = command.FromDate.ToGeorgian();
+            FromDate = command.FromDate.ToGeorgianDateTime();
 
             var ToDate = new DateTime();
-            ToDate = command.ToDate.ToGeorgian();
+            ToDate = command.ToDate.ToGeorgianDateTime();
 
             //TODO
             //if(_BoardRepository.Exists(x=>x.Branch == command.Branch))

@@ -13,11 +13,11 @@ namespace Files.Application.Petition
 {
     public class CreatePetition
     {
-        [Required(ErrorMessage = "فیلد الزامی است")]
+        //[Required(ErrorMessage = "فیلد الزامی است")]
         public string PetitionIssuanceDate { get; set; }
-        [Required(ErrorMessage = "فیلد الزامی است")]
+        //[Required(ErrorMessage = "فیلد الزامی است")]
         public string NotificationPetitionDate { get; set; }
-        [Required(ErrorMessage = "فیلد الزامی است")]
+        //[Required(ErrorMessage = "فیلد الزامی است")]
         public string TotalPenalty { get; set; }
         public string TotalPenaltyTitles { get; set; }
         public string Description { get; set; }

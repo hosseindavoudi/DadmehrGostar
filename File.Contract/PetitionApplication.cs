@@ -27,8 +27,8 @@ namespace File.Contract
             var petitionIssuanceDate = new DateTime();
             var notificationPetitionDate = new DateTime();
 
-            petitionIssuanceDate = command.PetitionIssuanceDate.ToGeorgian();
-            notificationPetitionDate = command.NotificationPetitionDate.ToGeorgian();
+            petitionIssuanceDate = command.PetitionIssuanceDate.ToGeorgianDateTime();
+            notificationPetitionDate = command.NotificationPetitionDate.ToGeorgianDateTime();
 
             //TODO if
             //if(_BoardRepository.Exists(x=>x.Branch == command.Branch))
@@ -51,8 +51,8 @@ namespace File.Contract
             var petitionIssuanceDate = new DateTime();
             var notificationPetitionDate = new DateTime();
 
-            petitionIssuanceDate = command.PetitionIssuanceDate.ToGeorgian();
-            notificationPetitionDate = command.NotificationPetitionDate.ToGeorgian();
+            petitionIssuanceDate = command.PetitionIssuanceDate.ToGeorgianDateTime();
+            notificationPetitionDate = command.NotificationPetitionDate.ToGeorgianDateTime();
 
             //TODO
             //if(_BoardRepository.Exists(x=>x.Branch == command.Branch))

@@ -24,10 +24,10 @@ namespace File.Contract
             var operation = new OperationResult();
 
             var fromDate = new DateTime();
-            fromDate = command.FromDate.ToGeorgian();
+            fromDate = command.FromDate.ToGeorgianDateTime();
 
             var toDate = new DateTime();
-            toDate = command.ToDate.ToGeorgian();
+            toDate = command.ToDate.ToGeorgianDateTime();
 
             //TODO if
             //if (_BoardRepository.Exists(x => x.Branch == command.Branch))

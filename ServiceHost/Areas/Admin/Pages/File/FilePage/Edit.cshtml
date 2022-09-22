@@ -151,7 +151,7 @@
                             <div class="col-md-6 proceedingSession">
                                 <div class="form-group">
                                     <label asp-for="createDiagnosisPS[i].Time" class="control-label"> ساعت برگزاری جلسه </label>
-                                    <input type="text" class="form-control" asp-for="createDiagnosisPS[i].Time">
+                                    <input type="text" class="form-control" asp-for="createDiagnosisPS[i].Time" readonly>
                                     <span asp-validation-for="createDiagnosisPS[i].Time" class="error"></span>
                                 </div>
                             </div>
@@ -227,7 +227,7 @@
                             <div class="col-md-6 proceedingSession">
                                 <div class="form-group">
                                     <label asp-for="createDisputeResolutionPS[i].Time" class="control-label"> ساعت برگزاری جلسه </label>
-                                    <input type="text" class="form-control" asp-for="createDisputeResolutionPS[i].Time">
+                                    <input type="text" class="form-control" asp-for="createDisputeResolutionPS[i].Time" readonly>
                                     <span asp-validation-for="createDisputeResolutionPS[i].Time" class="error"></span>
                                 </div>
                             </div>
@@ -322,6 +322,32 @@
             }
         }
     });
+    
+    $("#createDiagnosisPS_0__Time").persianDatepicker({
+        initialValue: false,
+        format: 'HH:mm',
+        "onlyTimePicker": true,
+        
+        "timePicker": {
+            "enabled": true,
+            "step": 1,
+            "hour": {
+              "enabled": true,
+              "step": null
+            },
+            "minute": {
+              "enabled": true,
+              "step": null
+            },
+            "second": {
+              "enabled": false,
+              "step": null
+            },
+            "meridian": {
+              "enabled": false,
+            }
+        }
+    });
 
     $('#createDisputeResolutionBoard_DisputeResolutionPetitionDate').persianDatepicker({
         format: 'YYYY/MM/DD',
@@ -347,6 +373,32 @@
         calendar: {
             persian: {
                 leapYearMode: 'astronomical'
+            }
+        }
+    });
+    
+    $("#createDisputeResolutionPS_0__Time").persianDatepicker({
+        initialValue: false,
+        format: 'HH:mm',
+        "onlyTimePicker": true,
+        
+        "timePicker": {
+            "enabled": true,
+            "step": 1,
+            "hour": {
+              "enabled": true,
+              "step": null
+            },
+            "minute": {
+              "enabled": true,
+              "step": null
+            },
+            "second": {
+              "enabled": false,
+              "step": null
+            },
+            "meridian": {
+              "enabled": false,
             }
         }
     });
@@ -382,7 +434,7 @@ var DiagnosisPSCounter = @Model.createDiagnosisPS.Count - 1;
                             <div class="form-group">
                                 <label class="control-label" for="createDiagnosisPS_${DiagnosisPSCounter}__Time"> ساعت برگزاری جلسه </label>
                                 <input type="text" class="form-control" data-val="true" data-val-required="فیلد الزامی است" 
-                                id="createDiagnosisPS_${DiagnosisPSCounter}__Time" name="createDiagnosisPS[${DiagnosisPSCounter}].Time" value="">
+                                id="createDiagnosisPS_${DiagnosisPSCounter}__Time" name="createDiagnosisPS[${DiagnosisPSCounter}].Time" value="" readonly>
                                 <span class="error field-validation-valid" data-valmsg-for="createDiagnosisPS[${DiagnosisPSCounter}].Time" 
                                 data-valmsg-replace="true"></span>
                             </div>
@@ -403,6 +455,32 @@ var DiagnosisPSCounter = @Model.createDiagnosisPS.Count - 1;
                 }
             }
         });
+        
+        $(`#createDiagnosisPS_${DiagnosisPSCounter}__Time`).persianDatepicker({
+        initialValue: false,
+        format: 'HH:mm',
+        "onlyTimePicker": true,
+        
+        "timePicker": {
+            "enabled": true,
+            "step": 1,
+            "hour": {
+              "enabled": true,
+              "step": null
+            },
+            "minute": {
+              "enabled": true,
+              "step": null
+            },
+            "second": {
+              "enabled": false,
+              "step": null
+            },
+            "meridian": {
+              "enabled": false,
+            }
+        }
+    });
 
         //$(cn).insertBefore("#" + boardType + " .addProceedingSessionFormButton");
         //$(content[1]).clone().insertBefore("#" + boardType + " .addProceedingSessionFormButton");
@@ -434,7 +512,7 @@ var DiagnosisPSCounter = @Model.createDiagnosisPS.Count - 1;
                                 <label class="control-label" for="createDisputeResolutionPS_${DisputeResolutionPSCounter}__Time"> ساعت برگزاری جلسه </label>
                                 <input type="text" class="form-control" data-val="true" data-val-required="فیلد الزامی است" 
                                 id="createDisputeResolutionPS_${DisputeResolutionPSCounter}__Time" 
-                                name="createDisputeResolutionPS[${DisputeResolutionPSCounter}].Time" value="">
+                                name="createDisputeResolutionPS[${DisputeResolutionPSCounter}].Time" value="" readonly>
                                 <span class="error field-validation-valid" data-valmsg-for="createDisputeResolutionPS[${DisputeResolutionPSCounter}].Time" 
                                 data-valmsg-replace="true"></span>
                             </div>
@@ -455,6 +533,32 @@ var DiagnosisPSCounter = @Model.createDiagnosisPS.Count - 1;
                 }
             }
         });
+        
+        $(`#createDisputeResolutionPS_${DisputeResolutionPSCounter}__Time`).persianDatepicker({
+        initialValue: false,
+        format: 'HH:mm',
+        "onlyTimePicker": true,
+        
+        "timePicker": {
+            "enabled": true,
+            "step": 1,
+            "hour": {
+              "enabled": true,
+              "step": null
+            },
+            "minute": {
+              "enabled": true,
+              "step": null
+            },
+            "second": {
+              "enabled": false,
+              "step": null
+            },
+            "meridian": {
+              "enabled": false,
+            }
+        }
+    });
 
     }
     
