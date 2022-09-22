@@ -35,7 +35,10 @@ namespace File.EfCore
             //TODO add mappings instead of boards
             var assembly = typeof(FileMapping).Assembly;
             modelBuilder.ApplyConfigurationsFromAssembly(assembly);
+            //modelBuilder.Entity<BoardType>().HasData();
+
             base.OnModelCreating(modelBuilder);
+
         }
     }
 }

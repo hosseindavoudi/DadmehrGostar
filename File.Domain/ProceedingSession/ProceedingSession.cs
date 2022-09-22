@@ -9,7 +9,7 @@ namespace File.Domain.ProceedingSession
 {
     public class ProceedingSession : EntityBase
     {
-        public ProceedingSession(DateTime date, DateTime time,long board_Id)
+        public ProceedingSession(DateTime date, string time,long board_Id)
         {
             Date = date;
             Time = time;
@@ -17,11 +17,11 @@ namespace File.Domain.ProceedingSession
         }
 
         public DateTime Date { get; private set; }
-        public DateTime Time { get; private set; }
+        public string Time { get; private set; }
         public long Board_Id { get; private set; }
         public Board.Board Board { get; set; }
 
-        public void Edit(DateTime date, DateTime time, long board_Id)
+        public void Edit(DateTime date, string time, long board_Id)
         {
             Date = date;
             Time = time;

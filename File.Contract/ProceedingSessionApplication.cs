@@ -26,14 +26,14 @@ namespace File.Contract
             var Date = new DateTime();
             Date = command.Date.ToGeorgianDateTime();
 
-            var Time = new DateTime();
-            Time = command.Time.ToGeorgianDateTime();
+            //var Time = new DateTime();
+            //Time = command.Time.ToGeorgianDateTime();
 
             //TODO if
             //if (_BoardRepository.Exists(x => x.Branch == command.Branch))
             //        operation.Failed("fail message")
 
-            var proSession = new ProceedingSession(Date, Time, command.Board_Id);
+            var proSession = new ProceedingSession(Date, command.Time, command.Board_Id);
             _proceedingSessionRepository.Create(proSession);
             _proceedingSessionRepository.SaveChanges();
 
